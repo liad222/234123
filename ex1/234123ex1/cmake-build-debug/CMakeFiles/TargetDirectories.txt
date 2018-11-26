@@ -1,0 +1,3 @@
+C:/Users/Liad/CLionProjects/234123/ex1/234123ex1/cmake-build-debug/CMakeFiles/234123ex1.dir
+C:/Users/Liad/CLionProjects/234123/ex1/234123ex1/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Liad/CLionProjects/234123/ex1/234123ex1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
