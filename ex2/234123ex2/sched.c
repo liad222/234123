@@ -27,9 +27,10 @@
 #include <linux/completion.h>
 #include <linux/kernel_stat.h>
 
+//HW2------------------------------------------------------------
 //New policy on/off variable
-int changable_On = 0;
-int changable_Cnt = 0;
+int changable_On;
+int changable_Cnt;
 /*
  * Convert user-nice values [ -20 ... 0 ... 19 ]
  * to static priority [ MAX_RT_PRIO..MAX_PRIO-1 ],
@@ -126,7 +127,7 @@ typedef struct runqueue runqueue_t;
 struct prio_array {
 	int nr_active;
 	unsigned long bitmap[BITMAP_SIZE];
-	list_t queue[MAX_PRIO+1];
+	list_t queue[MAX_PRIO];
 };
 
 /*
@@ -141,7 +142,7 @@ struct runqueue {
 	unsigned long nr_running, nr_switches, expired_timestamp;
 	signed long nr_uninterruptible;
 	task_t *curr, *idle;
-	prio_array_t *active, *expired, arrays[2];
+	prio_array_t *active, *expired, *SC,arrays[3];	//HW2-------------------------------
 	int prev_nr_running[NR_CPUS];
 	task_t *migration_thread;
 	list_t migration_queue;
@@ -215,10 +216,6 @@ static inline void rq_unlock(runqueue_t *rq)
  */
 static inline void dequeue_task(struct task_struct *p, prio_array_t *array)
 {
-	if (p->policy == SCHED_CHANGEABLE){
-			list_del(&p->run_list_SC);
-			changable_Cnt--;
-			}
 	array->nr_active--;
 	list_del(&p->run_list);
 	if (list_empty(array->queue + p->prio))
@@ -228,10 +225,6 @@ static inline void dequeue_task(struct task_struct *p, prio_array_t *array)
 static inline void enqueue_task(struct task_struct *p, prio_array_t *array)
 {
 	list_add_tail(&p->run_list, array->queue + p->prio);
-	if (p->policy == SCHED_CHANGEABLE){
-		list_add_tail(&p->run_list_SC,array->queue + MAX_PRIO);
-		changable_Cnt++;
-	}	// inserting the task to array[140] HW2
 	__set_bit(p->prio, array->bitmap);
 	array->nr_active++;
 	p->array = array;
@@ -384,11 +377,20 @@ repeat_lock_task:
 		if (old_state == TASK_UNINTERRUPTIBLE)
 			rq->nr_uninterruptible--;
 		activate_task(p, rq);
+		//HW2-------------------------------------------------------------------------------------------------
+		if(p->policy == SCHED_CHANGEABLE){
+			list_add_tail(&p->run_list_SC,rq->SC->queue);
+		}
 		/*
 		 * If sync is set, a resched_task() is a NOOP
 		 */
-		if (p->prio < rq->curr->prio)
+		 //HW2----------------------------------------------------------------------------------------------------------
+		if ((rq->curr->policy != SCHED_CHANGEABLE || ((rq->curr->policy == SCHED_CHANGEABLE) && (changable_On == 0))) && (p->prio < rq->curr->prio)){
 			resched_task(rq->curr);
+		}
+		if( changable_On == 1 && (rq->curr->policy == SCHED_CHANGEABLE) && (p->policy == SCHED_CHANGEABLE) && (p->pid < rq->curr->pid)){
+			resched_task(rq->curr);
+		}
 		success = 1;
 	}
 	p->state = TASK_RUNNING;
@@ -418,6 +420,9 @@ void wake_up_forked_process(task_t * p)
 		p->prio = effective_prio(p);
 	}
 	p->cpu = smp_processor_id();
+	if(p->policy == SCHED_CHANGEABLE){//HW2------------------------------------------
+		list_del(&p->run_list_SC);
+	}
 	activate_task(p, rq);
 
 	rq_unlock(rq);
@@ -781,7 +786,7 @@ void scheduler_tick(int user_tick, int system)
 	 */
 	if (p->sleep_avg)
 		p->sleep_avg--;
-
+//HW2------------------------------------------------------------
 		if ((p->policy != SCHED_CHANGEABLE )	||
 		 (p->policy == SCHED_CHANGEABLE && changable_On == 0))
 		{
@@ -792,7 +797,7 @@ void scheduler_tick(int user_tick, int system)
 				p->prio = effective_prio(p);
 				p->first_time_slice = 0;
 				p->time_slice = TASK_TIMESLICE(p);
-
+//-------------------------
 				if (!TASK_INTERACTIVE(p) || EXPIRED_STARVING(rq)) {
 					if (!rq->expired_timestamp)
 						rq->expired_timestamp = jiffies;
@@ -801,7 +806,6 @@ void scheduler_tick(int user_tick, int system)
 					enqueue_task(p, rq->active);
 			}
 	}
-
 out:
 #if CONFIG_SMP
 	if (!(jiffies % BUSY_REBALANCE_TICK))
@@ -841,7 +845,8 @@ need_resched:
 			prev->state = TASK_RUNNING;
 			break;
 		}
-	default:
+	default://HW2------------------------
+		list_del(prev->run_list_SC);
 		deactivate_task(prev, rq);
 	case TASK_RUNNING:
 		;
@@ -874,9 +879,10 @@ pick_next_task:
 	idx = sched_find_first_bit(array->bitmap);
 	queue = array->queue + idx;
 	next = list_entry(queue->next, task_t, run_list);
+	//HW2------------------------------------------------------------
 	if (next->policy == SCHED_CHANGEABLE && changable_On == 1 ){
-		list_for_each(list_t iterator,array->queue + MAX_PRIO){
-			task_t* entry=list_entry(iterator,task_t,run_list_SC)
+		list_for_each(list_t iterator,rq->SC->queue ){
+			task_t* entry=list_entry(iterator,task_t,run_list_SC);
 			if(entry->pid < next->pid){
 				dequeue_task(next,rq->active);
 				enqueue_task(next,rq->expired);
@@ -884,7 +890,7 @@ pick_next_task:
 			}
 		}
 	}
-
+//------------------
 switch_tasks:
 	prefetch(next);
 	clear_tsk_need_resched(prev);
@@ -1195,7 +1201,7 @@ static int setscheduler(pid_t pid, int policy, struct sched_param *param)
 	else {
 		retval = -EINVAL;
 		if (policy != SCHED_FIFO && policy != SCHED_RR &&
-				policy != SCHED_OTHER && policy != SCHED_CHANGEABLE)
+				policy != SCHED_OTHER && policy != SCHED_CHANGEABLE)//HW2------------------------------------------------------------
 			goto out_unlock;
 	}
 
@@ -1206,7 +1212,7 @@ static int setscheduler(pid_t pid, int policy, struct sched_param *param)
 	retval = -EINVAL;
 	if (lp.sched_priority < 0 || lp.sched_priority > MAX_USER_RT_PRIO-1)
 		goto out_unlock;
-	if ((policy == SCHED_OTHER || policy == SCHED_CHANGEABLE) != (lp.sched_priority == 0))
+	if ((policy == SCHED_OTHER || policy == SCHED_CHANGEABLE) != (lp.sched_priority == 0))//HW2------------------------------------------------------------
 		goto out_unlock;
 
 	retval = -EPERM;
@@ -1223,7 +1229,7 @@ static int setscheduler(pid_t pid, int policy, struct sched_param *param)
 	retval = 0;
 	p->policy = policy;
 	p->rt_priority = lp.sched_priority;
-	if (policy != SCHED_OTHER && policy != SCHED_CHANGEABLE )
+	if (policy != SCHED_OTHER && policy != SCHED_CHANGEABLE )//HW2------------------------------------------------------------
 		p->prio = MAX_USER_RT_PRIO-1 - p->rt_priority;
 	else
 		p->prio = p->static_prio;
@@ -1444,7 +1450,7 @@ asmlinkage long sys_sched_get_priority_max(int policy)
 	case SCHED_RR:
 		ret = MAX_USER_RT_PRIO-1;
 		break;
-	case SCHED_CHANGEABLE:
+	case SCHED_CHANGEABLE://HW2------------------------------------------------------------
 	case SCHED_OTHER:
 		ret = 0;
 		break;
@@ -1461,7 +1467,7 @@ asmlinkage long sys_sched_get_priority_min(int policy)
 	case SCHED_RR:
 		ret = 1;
 		break;
-	case SCHED_CHANGEABLE:
+	case SCHED_CHANGEABLE://HW2------------------------------------------------------------
 	case SCHED_OTHER:
 		ret = 0;
 	}
@@ -1653,6 +1659,7 @@ void __init sched_init(void)
 		rq = cpu_rq(i);
 		rq->active = rq->arrays;
 		rq->expired = rq->arrays + 1;
+		rq->SC = rq->arrays + 2;
 		spin_lock_init(&rq->lock);
 		INIT_LIST_HEAD(&rq->migration_queue);
 
@@ -1662,10 +1669,12 @@ void __init sched_init(void)
 				INIT_LIST_HEAD(array->queue + k);
 				__clear_bit(k, array->bitmap);
 			}
-			INIT_LIST_HEAD(array->queue + MAX_PRIO); //init cell 140
 			// delimiter for bitsearch
 			__set_bit(MAX_PRIO, array->bitmap);
 		}
+		//HW2------------------------------------------------------------
+		array = rq->arrays + 2;
+		INIT_LIST_HEAD(array->queue);
 	}
 	/*
 	 * We have to do a little magic to get the first
