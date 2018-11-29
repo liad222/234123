@@ -388,7 +388,10 @@ repeat_lock_task:
 		}
 		if (old_state == TASK_UNINTERRUPTIBLE)
 			rq->nr_uninterruptible--;
-		set_or_get_cnt(-1); //HW2-----------------------------------------------------
+			//HW2-----------------------------------------------------
+		if(p->policy == SCHED_CHANGEABLE){
+				set_or_get_cnt(-1); 
+			}
 		activate_task(p, rq);
 		/*
 		 * If sync is set, a resched_task() is a NOOP
@@ -852,8 +855,11 @@ need_resched:
 			prev->state = TASK_RUNNING;
 			break;
 		}
+		//HW2------------------------------------------------------------------------------
 		case TASK_UNINTERRUPTIBLE:
-		set_or_get_cnt(1);//HW2------------------------------------------------------------------------------
+		if(prev->policy == SCHED_CHANGEABLE){
+				set_or_get_cnt(1);
+		}
 	default:
 		deactivate_task(prev, rq);
 	case TASK_RUNNING:
