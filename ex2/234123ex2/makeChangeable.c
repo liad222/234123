@@ -19,11 +19,13 @@ int sys_make_changeable(pid_t pid) {
     }
     //printk("son_policy = %d\n",current->policy);
     if( current->policy == SCHED_CHANGEABLE || pcb->policy == SCHED_CHANGEABLE ){
+      printk("%d policy is - %d\n",pcb->policy,set_or_get_on(0));
         return ARECHANGEABLE;
     }
 
     pcb->policy = SCHED_CHANGEABLE;
     set_or_get_cnt(1);
     list_add_tail(&pcb->run_list_sc,getSC_list);
+    printk("%d policy is - %d\n",pcb->policy,set_or_get_on(0));
     return 0;
 }

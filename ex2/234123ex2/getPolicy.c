@@ -15,10 +15,12 @@ int sys_get_policy(pid_t pid) {
   task_t *pcb = find_task_by_pid(pid);
   if( pcb == NULL ){
     printk("change status is - %d\n",set_or_get_on(0));
-      return NOPID;
+    return NOPID;
   }
   if(pcb->policy != SCHED_CHANGEABLE){
+    printk("change status is - %d\n",set_or_get_on(0));
     return NOCHANGEABLE;
   }
+  printk("change status is - %d\n",set_or_get_on(0));
   return set_or_get_on(0);
 }

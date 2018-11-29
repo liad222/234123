@@ -17,6 +17,7 @@ int sys_is_changeable(pid_t pid) {
         return NOPID;
     }
     if( pcb->policy == SCHED_CHANGEABLE ){
+        printk("%d policy is - %d\n",pcb->policy ,set_or_get_on(0));
         return 1;
     }
     return 0;
