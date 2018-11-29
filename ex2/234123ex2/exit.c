@@ -450,10 +450,7 @@ static void exit_notify(void)
 
 	write_lock_irq(&tasklist_lock);
 	current->state = TASK_ZOMBIE;
-	//HW2------------------------------------------------------------------
-	if(set_or_get_cnt(0) == 0){
-		set_or_get_on(-1);
-	}
+	
 	do_notify_parent(current, current->exit_signal);
 	while (current->p_cptr != NULL) {
 		p = current->p_cptr;

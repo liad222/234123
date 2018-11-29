@@ -388,7 +388,10 @@ repeat_lock_task:
 		}
 		if (old_state == TASK_UNINTERRUPTIBLE)
 			rq->nr_uninterruptible--;
-		set_or_get_cnt(-1); //HW2-----------------------------------------------------
+			//HW2-----------------------------------------------------
+		if(p->policy == SCHED_CHANGEABLE){
+				set_or_get_cnt(-1);
+			}
 		activate_task(p, rq);
 		/*
 		 * If sync is set, a resched_task() is a NOOP
@@ -852,13 +855,22 @@ need_resched:
 			prev->state = TASK_RUNNING;
 			break;
 		}
+		//HW2------------------------------------------------------------------------------
 		case TASK_UNINTERRUPTIBLE:
-		set_or_get_cnt(1);//HW2------------------------------------------------------------------------------
+		if(prev->policy == SCHED_CHANGEABLE){
+				set_or_get_cnt(1);
+		}
 	default:
 		deactivate_task(prev, rq);
+		//HW2------------------------------------------------------------------
+		if(set_or_get_cnt(0) == 0){
+			set_or_get_on(-1);
+		}
 	case TASK_RUNNING:
 		;
 	}
+	//HW2--------------------------------------------------------------------
+hw2_label:
 #if CONFIG_SMP
 pick_next_task:
 #endif
@@ -896,11 +908,11 @@ pick_next_task:
 			if(entry->pid < next->pid){
 				dequeue_task(next,rq->active);
 				enqueue_task(next,rq->expired);
-				goto need_resched;
+				goto hw2_label;
 			}
 		}
 	}
-//------------------
+//----------------------------------------------------------------------------
 switch_tasks:
 	prefetch(next);
 	clear_tsk_need_resched(prev);
