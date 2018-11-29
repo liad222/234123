@@ -14,13 +14,13 @@
 int sys_get_policy(pid_t pid) {
   task_t *pcb = find_task_by_pid(pid);
   if( pcb == NULL ){
-    printk("change status is - %d\n",set_or_get_on(0));
-    return NOPID;
+    printk("change status is - %d, number of SC is - %d, no SC in list - %d\n",set_or_get_on(0),set_or_get_cnt(0),list_empty(getSC_list()));
+      return NOPID;
   }
   if(pcb->policy != SCHED_CHANGEABLE){
-    printk("change status is - %d\n",set_or_get_on(0));
+    printk("change status is - %d, number of SC is - %d, no SC in list - %d\n",set_or_get_on(0),set_or_get_cnt(0),list_empty(getSC_list()));
     return NOCHANGEABLE;
   }
-  printk("change status is - %d\n",set_or_get_on(0));
+    printk("change status is - %d, number of SC is - %d, no SC in list - %d\n",set_or_get_on(0),set_or_get_cnt(0),list_empty(getSC_list()));
   return set_or_get_on(0);
 }

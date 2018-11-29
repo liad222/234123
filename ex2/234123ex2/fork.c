@@ -786,7 +786,7 @@ int do_fork(unsigned long clone_flags, unsigned long stack_start,
 		current->need_resched = 1;
 		//HW2----------------------------------------------------
 		if(current->policy == SCHED_CHANGEABLE && set_or_get_on(0) == 1 && current->pid < p->pid){
-			current->need_resched = 0;
+		  current->need_resched = 0;
 		}
 
 fork_out:
