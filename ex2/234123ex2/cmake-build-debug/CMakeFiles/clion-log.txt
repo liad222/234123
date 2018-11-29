@@ -1,4 +1,4 @@
-"C:\Program Files\JetBrains\CLion 2018.2.2\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" C:\Users\Liad\CLionProjects\234123\ex2\234123ex2
+"C:\Program Files\JetBrains\CLion 2018.2.2\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" C:\Users\Liad\Documents\GitHub\234123\ex2\234123ex2
 -- The C compiler identification is GNU 5.1.0
 -- Check for working C compiler: C:/TDM-GCC-64/bin/gcc.exe
 -- Check for working C compiler: C:/TDM-GCC-64/bin/gcc.exe -- works
@@ -8,4 +8,4 @@
 -- Detecting C compile features - done
 -- Configuring done
 -- Generating done
--- Build files have been written to: C:/Users/Liad/CLionProjects/234123/ex2/234123ex2/cmake-build-debug
+-- Build files have been written to: C:/Users/Liad/Documents/GitHub/234123/ex2/234123ex2/cmake-build-debug

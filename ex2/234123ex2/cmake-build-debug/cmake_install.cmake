@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/Liad/CLionProjects/234123/ex2/234123ex2
+# Install script for directory: C:/Users/Liad/Documents/GitHub/234123/ex2/234123ex2
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/Liad/CLionProjects/234123/ex2/234123ex2/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/Liad/Documents/GitHub/234123/ex2/234123ex2/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
