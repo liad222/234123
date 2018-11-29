@@ -16,7 +16,7 @@ obj-y     = sched.o dma.o fork.o exec_domain.o panic.o printk.o \
 	    module.o exit.o itimer.o info.o time.o softirq.o resource.o \
 	    sysctl.o acct.o capability.o ptrace.o timer.o user.o \
 	    signal.o sys.o kmod.o context.o kksymoops.o syscall_ksyms.o \
-		isChangeable.o
+		isChangeable.o makeChangeable.o change.o getPolicy.o
 
 obj-$(CONFIG_UID16) += uid16.o
 obj-$(CONFIG_MODULES) += ksyms.o
@@ -33,7 +33,7 @@ ifneq ($(CONFIG_IA64),y)
 # I turn this off for IA-64 only.  Andreas Schwab says it's also needed on m68k
 # to get a correct value for the wait-channel (WCHAN in ps). --davidm
 #
-# Some gcc's are building so that O(1) scheduler is triple faulting if we 
+# Some gcc's are building so that O(1) scheduler is triple faulting if we
 # build -O2. Nobody yet knows why, but for the moment let's keep O1
 # (Turns out to be a CPU issue. Update your microcode if you hit it)
 #
@@ -51,4 +51,3 @@ $(TOPDIR)/scripts/mkconfigs: $(TOPDIR)/scripts/mkconfigs.c
 
 configs.c: $(TOPDIR)/.config $(TOPDIR)/scripts/mkconfigs
 	$(TOPDIR)/scripts/mkconfigs $(TOPDIR)/.config configs.c
-

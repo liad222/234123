@@ -27,10 +27,7 @@
 #include <linux/completion.h>
 #include <linux/kernel_stat.h>
 
-//HW2------------------------------------------------------------
-//New policy on/off variable
-int changable_On;
-int changable_Cnt;
+
 /*
  * Convert user-nice values [ -20 ... 0 ... 19 ]
  * to static priority [ MAX_RT_PRIO..MAX_PRIO-1 ],
@@ -142,7 +139,11 @@ struct runqueue {
 	unsigned long nr_running, nr_switches, expired_timestamp;
 	signed long nr_uninterruptible;
 	task_t *curr, *idle;
-	prio_array_t *active, *expired, *SC,arrays[3];	//HW2-------------------------------
+	//HW2------------------------------------------------------------
+	prio_array_t *active, *expired, *SC, arrays[3];
+	int changeable_On;
+	int changeable_Cnt;
+	//HW2------------------------------------------------------------
 	int prev_nr_running[NR_CPUS];
 	task_t *migration_thread;
 	list_t migration_queue;
@@ -275,6 +276,11 @@ static inline void activate_task(task_t *p, runqueue_t *rq)
 		p->prio = effective_prio(p);
 	}
 	enqueue_task(p, array);
+	//HW2-------------------------------------------------------------------------------------------------
+	if(p->policy == SCHED_CHANGEABLE){
+		list_add_tail(&p->run_list_sc,rq->SC->queue);
+		set_or_get_cnt(1);
+	}
 	rq->nr_running++;
 }
 
@@ -284,7 +290,13 @@ static inline void deactivate_task(struct task_struct *p, runqueue_t *rq)
 	if (p->state == TASK_UNINTERRUPTIBLE)
 		rq->nr_uninterruptible++;
 	dequeue_task(p, p->array);
+	//HW2-------------------------------------------------------------
+	if(p->policy == SCHED_CHANGEABLE){
+		list_del(&p->run_list_sc);
+		set_or_get_cnt(-1);
+	}
 	p->array = NULL;
+
 }
 
 static inline void resched_task(task_t *p)
@@ -376,19 +388,16 @@ repeat_lock_task:
 		}
 		if (old_state == TASK_UNINTERRUPTIBLE)
 			rq->nr_uninterruptible--;
+		set_or_get_cnt(-1); //HW2-----------------------------------------------------
 		activate_task(p, rq);
-		//HW2-------------------------------------------------------------------------------------------------
-		if(p->policy == SCHED_CHANGEABLE){
-			list_add_tail(&p->run_list_SC,rq->SC->queue);
-		}
 		/*
 		 * If sync is set, a resched_task() is a NOOP
 		 */
 		 //HW2----------------------------------------------------------------------------------------------------------
-		if ((rq->curr->policy != SCHED_CHANGEABLE || ((rq->curr->policy == SCHED_CHANGEABLE) && (changable_On == 0))) && (p->prio < rq->curr->prio)){
+		if ((rq->curr->policy != SCHED_CHANGEABLE || ((rq->curr->policy == SCHED_CHANGEABLE) && (set_or_get_on(0) == 0))) && (p->prio < rq->curr->prio)){
 			resched_task(rq->curr);
 		}
-		if( changable_On == 1 && (rq->curr->policy == SCHED_CHANGEABLE) && (p->policy == SCHED_CHANGEABLE) && (p->pid < rq->curr->pid)){
+		if( set_or_get_on(0) == 1 && (rq->curr->policy == SCHED_CHANGEABLE) && (p->policy == SCHED_CHANGEABLE) && (p->pid < rq->curr->pid)){
 			resched_task(rq->curr);
 		}
 		success = 1;
@@ -420,9 +429,6 @@ void wake_up_forked_process(task_t * p)
 		p->prio = effective_prio(p);
 	}
 	p->cpu = smp_processor_id();
-	if(p->policy == SCHED_CHANGEABLE){//HW2------------------------------------------
-		list_del(&p->run_list_SC);
-	}
 	activate_task(p, rq);
 
 	rq_unlock(rq);
@@ -788,7 +794,7 @@ void scheduler_tick(int user_tick, int system)
 		p->sleep_avg--;
 //HW2------------------------------------------------------------
 		if ((p->policy != SCHED_CHANGEABLE )	||
-		 (p->policy == SCHED_CHANGEABLE && changable_On == 0))
+		 (p->policy == SCHED_CHANGEABLE && set_or_get_on(0) == 0))
 		{
 			if (!--p->time_slice)
 			{
@@ -824,6 +830,7 @@ asmlinkage void schedule(void)
 	task_t *prev, *next;
 	runqueue_t *rq;
 	prio_array_t *array;
+	prio_array_t *array_sc;//HW2--------------------------------------
 	list_t *queue;
 	int idx;
 
@@ -845,8 +852,9 @@ need_resched:
 			prev->state = TASK_RUNNING;
 			break;
 		}
-	default://HW2------------------------
-		list_del(prev->run_list_SC);
+		case TASK_UNINTERRUPTIBLE:
+		set_or_get_cnt(1);//HW2------------------------------------------------------------------------------
+	default:
 		deactivate_task(prev, rq);
 	case TASK_RUNNING:
 		;
@@ -880,13 +888,15 @@ pick_next_task:
 	queue = array->queue + idx;
 	next = list_entry(queue->next, task_t, run_list);
 	//HW2------------------------------------------------------------
-	if (next->policy == SCHED_CHANGEABLE && changable_On == 1 ){
-		list_for_each(list_t iterator,rq->SC->queue ){
-			task_t* entry=list_entry(iterator,task_t,run_list_SC);
+	if (next->policy == SCHED_CHANGEABLE && set_or_get_on(0) == 1 ){
+		array_sc = rq->SC;
+		struct list_head *tmp;
+		list_for_each(tmp,array_sc->queue){
+			task_t* entry=list_entry(tmp,task_t,run_list_sc);
 			if(entry->pid < next->pid){
 				dequeue_task(next,rq->active);
 				enqueue_task(next,rq->expired);
-				goto pick_next_task;
+				goto need_resched;
 			}
 		}
 	}
@@ -1405,6 +1415,9 @@ out_unlock:
 
 asmlinkage long sys_sched_yield(void)
 {
+	if(current->policy == SCHED_CHANGEABLE){//HW2----------------------------
+		return 0;
+	}
 	runqueue_t *rq = this_rq_lock();
 	prio_array_t *array = current->array;
 	int i;
@@ -1675,6 +1688,8 @@ void __init sched_init(void)
 		//HW2------------------------------------------------------------
 		array = rq->arrays + 2;
 		INIT_LIST_HEAD(array->queue);
+		rq->changeable_On = 0;
+		rq->changeable_Cnt = 0;
 	}
 	/*
 	 * We have to do a little magic to get the first
@@ -1942,6 +1957,42 @@ int ll_copy_from_user(void *to, const void *from_user, unsigned long len)
 		conditional_schedule();
 	}
 	return 0;
+}
+//HW2------------------------------------------------------------------
+list_t* getSC_list(){
+	runqueue_t *rq;
+	rq = this_rq();
+	return (rq->SC->queue);
+}
+
+int set_or_get_on(int x){
+	runqueue_t *rq;
+	rq=this_rq();
+		  spin_lock_irq(rq);
+	if (x==-1){// change to 0
+		rq->changeable_On = 0;
+	}
+	if (x==1){// change to 1
+		rq->changeable_On = 1;
+	}
+	int retval = rq->changeable_On;
+	  spin_unlock_irq(rq);
+		return retval;
+}
+
+int set_or_get_cnt(int x){
+	runqueue_t *rq;
+	rq=this_rq();
+  		spin_lock_irq(rq);
+	if (x == 1){// ++
+		rq->changeable_Cnt++;
+	}
+	if (x == -1){// --
+		rq->changeable_Cnt--;
+	}
+	int retval = rq->changeable_Cnt;
+	  spin_unlock_irq(rq);
+		return retval;
 }
 
 #ifdef CONFIG_LOLAT_SYSCTL

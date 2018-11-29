@@ -4,10 +4,7 @@
 #include <asm/param.h>	/* for HZ */
 
 extern unsigned long event;
-extern int changable_On;
-changable_On = 0;
-extern int changable_Cnt;
-changable_Cnt = 0;
+
 
 #include <linux/config.h>
 #include <linux/binfmts.h>
@@ -347,7 +344,7 @@ struct task_struct {
 	int prio, static_prio;
 	list_t run_list;
 	//HW2-----------------------------------------------------
-	list_t run_list_SC; //// second run_list for the new list
+	list_t run_list_sc; //// second run_list for the new list
 	prio_array_t *array;
 
 	unsigned long sleep_avg;
@@ -537,7 +534,7 @@ extern struct exec_domain	default_exec_domain;
     mm:			NULL,						\
     active_mm:		&init_mm,					\
     run_list:		LIST_HEAD_INIT(tsk.run_list),			\
-		run_list_SC: LIST_HEAD_INIT(tsk.run_list_SC), \//HW2-----------------------------------------------------
+		run_list_sc:	LIST_HEAD_INIT(tsk.run_list_sc), 	\
     time_slice:		HZ,						\
     next_task:		&tsk,						\
     prev_task:		&tsk,						\
@@ -1006,7 +1003,9 @@ static inline int need_resched(void)
 {
 	return unlikely(current->need_resched);
 }
-
+list_t* getSC_list();
+int set_or_get_on(int x);
+int set_or_get_cnt(int x);
 #endif /* __KERNEL__ */
 
 #endif
