@@ -8,6 +8,7 @@
 #define ARECHANGEABLE -20
 #define BADVAL -30
 #define NOCHANGEABLE -40
+#define REALTIMEPROC -50
 
 int is_changeable(pid_t pid){
     int res;

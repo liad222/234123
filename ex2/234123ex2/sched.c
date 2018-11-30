@@ -903,6 +903,7 @@ pick_next_task:
 	if (next->policy == SCHED_CHANGEABLE && set_or_get_on(0) == 1 ){
 		array_sc = rq->SC;
 		struct list_head *tmp;
+		array_sc = rq->SC;
 		list_for_each(tmp,array_sc->queue){
 			task_t* entry=list_entry(tmp,task_t,run_list_sc);
 			if(entry->pid < next->pid){
@@ -1223,7 +1224,7 @@ static int setscheduler(pid_t pid, int policy, struct sched_param *param)
 	else {
 		retval = -EINVAL;
 		if (policy != SCHED_FIFO && policy != SCHED_RR &&
-				policy != SCHED_OTHER && policy != SCHED_CHANGEABLE)//HW2------------------------------------------------------------
+				policy != SCHED_OTHER /* && policy != SCHED_CHANGEABLE*/)//HW2------------------------------------------------------------
 			goto out_unlock;
 	}
 
@@ -1234,7 +1235,7 @@ static int setscheduler(pid_t pid, int policy, struct sched_param *param)
 	retval = -EINVAL;
 	if (lp.sched_priority < 0 || lp.sched_priority > MAX_USER_RT_PRIO-1)
 		goto out_unlock;
-	if ((policy == SCHED_OTHER || policy == SCHED_CHANGEABLE) != (lp.sched_priority == 0))//HW2------------------------------------------------------------
+	if ((policy == SCHED_OTHER /*|| policy == SCHED_CHANGEABLE*/) != (lp.sched_priority == 0))//HW2------------------------------------------------------------
 		goto out_unlock;
 
 	retval = -EPERM;
@@ -1251,7 +1252,7 @@ static int setscheduler(pid_t pid, int policy, struct sched_param *param)
 	retval = 0;
 	p->policy = policy;
 	p->rt_priority = lp.sched_priority;
-	if (policy != SCHED_OTHER && policy != SCHED_CHANGEABLE )//HW2------------------------------------------------------------
+	if (policy != SCHED_OTHER /*&& policy != SCHED_CHANGEABLE*/ )//HW2------------------------------------------------------------
 		p->prio = MAX_USER_RT_PRIO-1 - p->rt_priority;
 	else
 		p->prio = p->static_prio;
