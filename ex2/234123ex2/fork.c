@@ -652,7 +652,7 @@ int do_fork(unsigned long clone_flags, unsigned long stack_start,
 		goto bad_fork_cleanup;
 
 	INIT_LIST_HEAD(&p->run_list);
-
+	INIT_LIST_HEAD(&p->run_list_sc);
 	p->p_cptr = NULL;
 	init_waitqueue_head(&p->wait_chldexit);
 	p->vfork_done = NULL;
@@ -774,6 +774,10 @@ int do_fork(unsigned long clone_flags, unsigned long stack_start,
 
 	if (p->ptrace & PT_PTRACED)
 		send_sig(SIGSTOP, p, 1);
+		//HW2--------------------------------------------------------------
+		if(current->policy == SCHED_CHANGEABLE){
+			p->policy = SCHED_CHANGEABLE;
+		}
 	wake_up_forked_process(p);	/* do this last */
 	++total_forks;
 	if (clone_flags & CLONE_VFORK)
@@ -783,6 +787,7 @@ int do_fork(unsigned long clone_flags, unsigned long stack_start,
 		 * Let the child process run first, to avoid most of the
 		 * COW overhead when the child exec()s afterwards.
 		 */
+
 		current->need_resched = 1;
 		//HW2----------------------------------------------------
 		if(current->policy == SCHED_CHANGEABLE && set_or_get_on(0) == 1 && current->pid < p->pid){

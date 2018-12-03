@@ -450,7 +450,7 @@ static void exit_notify(void)
 
 	write_lock_irq(&tasklist_lock);
 	current->state = TASK_ZOMBIE;
-	
+
 	do_notify_parent(current, current->exit_signal);
 	while (current->p_cptr != NULL) {
 		p = current->p_cptr;

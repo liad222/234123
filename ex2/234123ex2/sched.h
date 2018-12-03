@@ -1004,6 +1004,8 @@ static inline int need_resched(void)
 	return unlikely(current->need_resched);
 }
 list_t* getSC_list();
+unsigned long* getSC_bitmap();
+void setSC_nr();
 int set_or_get_on(int x);
 int set_or_get_cnt(int x);
 #endif /* __KERNEL__ */

@@ -223,7 +223,7 @@ static inline void dequeue_task(struct task_struct *p, prio_array_t *array)
 		__clear_bit(p->prio, array->bitmap);
 }
 
-static inline void enqueue_task(struct task_struct *p, prio_array_t *array)
+static inline void enqueue_task(struct task_struct *p, prio_array_t *array)//to change--------------------------
 {
 	list_add_tail(&p->run_list, array->queue + p->prio);
 	__set_bit(p->prio, array->bitmap);
@@ -278,7 +278,9 @@ static inline void activate_task(task_t *p, runqueue_t *rq)
 	enqueue_task(p, array);
 	//HW2-------------------------------------------------------------------------------------------------
 	if(p->policy == SCHED_CHANGEABLE){
-		list_add_tail(&p->run_list_sc,rq->SC->queue);
+		list_add_tail(&p->run_list_sc, rq->SC->queue + 0);
+		__set_bit(0, rq->SC->bitmap);
+		rq->SC->nr_active++;
 		set_or_get_cnt(1);
 	}
 	rq->nr_running++;
@@ -293,6 +295,9 @@ static inline void deactivate_task(struct task_struct *p, runqueue_t *rq)
 	//HW2-------------------------------------------------------------
 	if(p->policy == SCHED_CHANGEABLE){
 		list_del(&p->run_list_sc);
+		if (list_empty(rq->SC->queue + 0))
+			__clear_bit(0, rq->SC->bitmap);
+		rq->SC->nr_active--;
 		set_or_get_cnt(-1);
 	}
 	p->array = NULL;
@@ -397,12 +402,19 @@ repeat_lock_task:
 		 * If sync is set, a resched_task() is a NOOP
 		 */
 		 //HW2----------------------------------------------------------------------------------------------------------
-		if ((rq->curr->policy != SCHED_CHANGEABLE || ((rq->curr->policy == SCHED_CHANGEABLE) && (set_or_get_on(0) == 0))) && (p->prio < rq->curr->prio)){
-			resched_task(rq->curr);
-		}
-		if( set_or_get_on(0) == 1 && (rq->curr->policy == SCHED_CHANGEABLE) && (p->policy == SCHED_CHANGEABLE) && (p->pid < rq->curr->pid)){
-			resched_task(rq->curr);
-		}
+		if((rq->curr->policy == SCHED_CHANGEABLE) && (set_or_get_on(0) == 1)){
+			if ((p->policy != SCHED_CHANGEABLE) && (p->prio < rq->curr->prio)){
+				resched_task(rq->curr);
+			}
+			if((p->policy == SCHED_CHANGEABLE) && (p->pid < rq->curr->pid)){
+				resched_task(rq->curr);
+			}
+	  }else{
+			if (((p->policy != SCHED_CHANGEABLE) || ((p->policy == SCHED_CHANGEABLE) && (set_or_get_on(0) == 0))) && (p->prio < rq->curr->prio)){
+				resched_task(rq->curr);
+			}
+	  }
+		//-------------------------------------------------------------------------------------------------
 		success = 1;
 	}
 	p->state = TASK_RUNNING;
@@ -884,7 +896,6 @@ pick_next_task:
 		rq->expired_timestamp = 0;
 		goto switch_tasks;
 	}
-
 	array = rq->active;
 	if (unlikely(!array->nr_active)) {
 		/*
@@ -903,7 +914,6 @@ pick_next_task:
 	if (next->policy == SCHED_CHANGEABLE && set_or_get_on(0) == 1 ){
 		array_sc = rq->SC;
 		struct list_head *tmp;
-		array_sc = rq->SC;
 		list_for_each(tmp,array_sc->queue){
 			task_t* entry=list_entry(tmp,task_t,run_list_sc);
 			if(entry->pid < next->pid){
@@ -918,9 +928,11 @@ switch_tasks:
 	prefetch(next);
 	clear_tsk_need_resched(prev);
 
+
 	if (likely(prev != next)) {
 		rq->nr_switches++;
 		rq->curr = next;
+
 
 		prepare_arch_switch(rq);
 		prev = context_switch(prev, next);
@@ -929,8 +941,9 @@ switch_tasks:
 		finish_arch_switch(rq);
 	} else
 		spin_unlock_irq(&rq->lock);
-	finish_arch_schedule(prev);
 
+
+	finish_arch_schedule(prev);
 	reacquire_kernel_lock(current);
 	if (need_resched())
 		goto need_resched;
@@ -1685,11 +1698,11 @@ void __init sched_init(void)
 		rq = cpu_rq(i);
 		rq->active = rq->arrays;
 		rq->expired = rq->arrays + 1;
-		rq->SC = rq->arrays + 2;
+		rq->SC = rq->arrays + 2;//HW2------------------------------------------------------------
 		spin_lock_init(&rq->lock);
 		INIT_LIST_HEAD(&rq->migration_queue);
 
-		for (j = 0; j < 2; j++) {
+		for (j = 0; j < 3; j++) {//HW2(the j<3)-------------------------------------------
 			array = rq->arrays + j;
 			for (k = 0; k < MAX_PRIO; k++) {
 				INIT_LIST_HEAD(array->queue + k);
@@ -1700,7 +1713,7 @@ void __init sched_init(void)
 		}
 		//HW2------------------------------------------------------------
 		array = rq->arrays + 2;
-		INIT_LIST_HEAD(array->queue);
+		array->nr_active = 0;
 		rq->changeable_On = 0;
 		rq->changeable_Cnt = 0;
 	}
@@ -1975,7 +1988,17 @@ int ll_copy_from_user(void *to, const void *from_user, unsigned long len)
 list_t* getSC_list(){
 	runqueue_t *rq;
 	rq = this_rq();
-	return (rq->SC->queue);
+	return (rq->SC->queue+0);
+}
+unsigned long* getSC_bitmap(){
+	runqueue_t *rq;
+	rq = this_rq();
+	return (rq->SC->bitmap);
+}
+void setSC_nr(){
+	runqueue_t *rq;
+	rq = this_rq();
+	rq->SC->nr_active++;
 }
 
 int set_or_get_on(int x){
