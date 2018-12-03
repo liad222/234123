@@ -652,7 +652,7 @@ int do_fork(unsigned long clone_flags, unsigned long stack_start,
 		goto bad_fork_cleanup;
 
 	INIT_LIST_HEAD(&p->run_list);
-	INIT_LIST_HEAD(&p->run_list_sc);
+	INIT_LIST_HEAD(&p->run_list_sc);//HW2------------------------------------------
 	p->p_cptr = NULL;
 	init_waitqueue_head(&p->wait_chldexit);
 	p->vfork_done = NULL;

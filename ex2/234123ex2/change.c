@@ -19,6 +19,9 @@ int sys_change(int val) {
   }
   if(val == 1){
     set_or_get_on(1);
+    if(is_min(current) == 0){
+      set_tsk_need_resched(current);
+    }
     return 0;
   }
     set_or_get_on(-1);

@@ -27,6 +27,9 @@ int sys_make_changeable(pid_t pid) {
     __set_bit(0, getSC_bitmap());
     setSC_nr();
   }
-    set_or_get_cnt(1);
+  set_or_get_cnt(1);
+    if(is_min(pcb) == 0){
+      set_tsk_need_resched(pcb);
+    }
     return 0;
 }

@@ -1008,6 +1008,7 @@ unsigned long* getSC_bitmap();
 void setSC_nr();
 int set_or_get_on(int x);
 int set_or_get_cnt(int x);
+int is_min(task_t* task);
 #endif /* __KERNEL__ */
 
 #endif

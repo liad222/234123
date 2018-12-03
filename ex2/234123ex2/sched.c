@@ -912,17 +912,12 @@ pick_next_task:
 	next = list_entry(queue->next, task_t, run_list);
 	//HW2------------------------------------------------------------
 	if (next->policy == SCHED_CHANGEABLE && set_or_get_on(0) == 1 ){
-		array_sc = rq->SC;
-		struct list_head *tmp;
-		list_for_each(tmp,array_sc->queue){
-			task_t* entry=list_entry(tmp,task_t,run_list_sc);
-			if(entry->pid < next->pid){
+ 			if( is_min(next) == 0 ){
 				dequeue_task(next,rq->active);
 				enqueue_task(next,rq->expired);
 				goto hw2_label;
 			}
 		}
-	}
 //----------------------------------------------------------------------------
 switch_tasks:
 	prefetch(next);
@@ -2029,6 +2024,20 @@ int set_or_get_cnt(int x){
 	int retval = rq->changeable_Cnt;
 	  spin_unlock_irq(rq);
 		return retval;
+}
+
+int is_min(task_t* task){
+		runqueue_t *rq = this_rq();
+		prio_array_t *array_sc = rq->SC;
+		struct list_head *tmp;
+		task_t* entry;
+		list_for_each(tmp,array_sc->queue){
+			entry=list_entry(tmp,task_t,run_list_sc);
+			if(entry->pid < task->pid){
+				return 0;
+			}
+		}
+	return 1;
 }
 
 #ifdef CONFIG_LOLAT_SYSCTL
