@@ -19,8 +19,12 @@ int main(){
     }   
     else{
         busy_wait_by_sec(1);
-        TASSERT( get_policy(p)==0,
-        "get_policy: should return 0 when policy disabled due to all SC are zombies ",__LINE__);
+        TASSERT( get_policy(p)==-1,
+        "get_policy: should return -1 when checking zombie process ",__LINE__);
+        TASSERT(make_changeable(p)==-1,
+        "make_changeable: should return -1 when checking zombie process ",__LINE__);
+        TASSERT( is_changeable(p)==-1,
+        "is_changeable: should return -1 when checking zombie process ",__LINE__);
     } 
     //normal process, policy disabled
     /*fork normal process, then set father as Real time and send waiting for son,
