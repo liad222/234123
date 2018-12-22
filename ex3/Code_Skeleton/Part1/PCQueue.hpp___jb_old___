@@ -9,8 +9,8 @@ public:
 		producerInside = 0;
 		consumerInside = 0;
 		producerWaiting = 0;
-		pthread_cond_init(&producerCond,NULL);
-		pthread_cond_init(&consumerCond,NULL);
+		pthread_cond_init(producerCond,NULL);
+		pthread_cond_init(consumerCond,NULL);
 		pthread_mutexattr_t attr;            //lock init
 		pthread_mutexattr_init(&attr);
 		pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_ERRORCHECK);
@@ -24,7 +24,7 @@ public:
 	void consumerLock(){
 		pthread_mutex_lock(&GLock);
 		while(producerInside > 0 || producerWaiting > 0 || items.empty())
-				pthread_cond_wait(&consumerCond,&GLock);
+				pthread_cond_wait(consumerCond,&GLock);
 		consumerInside++;
 		pthread_mutex_unlock(&GLock);
 	}
@@ -32,7 +32,7 @@ public:
 		pthread_mutex_lock(&GLock);
 		consumerInside--;
 		if(consumerInside == 0)
-			pthread_cond_signal(&producerCond);
+			pthread_cond_signal(producerCond);
 		pthread_mutex_unlock(&GLock);
 	}
 
@@ -40,7 +40,7 @@ public:
 		pthread_mutex_lock(&GLock);
 		producerWaiting++;
 		while(producerInside + consumerInside > 0)
-			pthread_cond_wait(&producerCond,&GLock);
+			pthread_cond_wait(producerCond,&GLock);
 		producerWaiting--;
 		producerInside++;
 		pthread_mutex_unlock(&GLock);
@@ -50,8 +50,8 @@ public:
 		pthread_mutex_lock(&GLock);
 		producerInside--;
 		if(producerInside == 0) {
-			pthread_cond_broadcast(&consumerCond);
-			pthread_cond_signal(&producerCond);
+			pthread_cond_broadcast(consumerCond);
+			pthread_cond_signal(producerCond);
 		}
 		pthread_mutex_unlock(&GLock);
 	}
@@ -80,8 +80,8 @@ public:
 private:
 	int producerInside,consumerInside,producerWaiting;
 	pthread_mutex_t GLock;
-	pthread_cond_t producerCond;
-	pthread_cond_t consumerCond;
+	pthread_cond_t *producerCond;
+	pthread_cond_t *consumerCond;
 	queue<T> items;
 };
 // Recommendation: Use the implementation of the std::queue for this exercise
