@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part1/Headers.hpp
+../Code_Skeleton/Part1/Headers.hpp
 vector
 -
 string
@@ -36,21 +36,55 @@ unistd.h
 pthread.h
 -
 
-C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part1/PCQueue.hpp
+../Code_Skeleton/Part1/PCQueue.hpp
 Headers.hpp
-C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part1/Headers.hpp
+../Code_Skeleton/Part1/Headers.hpp
 
-C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part1/Semaphore.hpp
+../Code_Skeleton/Part1/Semaphore.hpp
 Headers.hpp
-C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part1/Headers.hpp
-pthread.h
--
+../Code_Skeleton/Part1/Headers.hpp
 
-C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part1/part1test.cpp
-iostream
+../Code_Skeleton/Part2/Game.hpp
+Thread.hpp
+../Code_Skeleton/Part2/Thread.hpp
+utils.hpp
 -
-PCQueue.hpp
-C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part1/PCQueue.hpp
 Semaphore.hpp
-C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part1/Semaphore.hpp
+../Code_Skeleton/Part2/Semaphore.hpp
+PCQueue.hpp
+../Code_Skeleton/Part2/PCQueue.hpp
+
+../Code_Skeleton/Part2/Thread.hpp
+Headers.hpp
+../Code_Skeleton/Part2/Headers.hpp
+Game.hpp
+-
+
+../Code_Skeleton/Part2/utils.hpp
+Headers.hpp
+../Code_Skeleton/Part2/Headers.hpp
+
+C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/Game.cpp
+Game.hpp
+-
+
+C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/Game.hpp
+Thread.hpp
+C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/Thread.hpp
+utils.hpp
+-
+Semaphore.hpp
+C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/Semaphore.hpp
+PCQueue.hpp
+C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/PCQueue.hpp
+
+C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/Thread.hpp
+Headers.hpp
+C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/Headers.hpp
+Game.hpp
+-
+
+C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/main.cpp
+Game.hpp
+C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/Game.hpp
 

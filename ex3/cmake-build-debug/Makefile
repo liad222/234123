@@ -122,6 +122,87 @@ ex3/fast:
 	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/build
 .PHONY : ex3/fast
 
+Code_Skeleton/Part2/Game.obj: Code_Skeleton/Part2/Game.cpp.obj
+
+.PHONY : Code_Skeleton/Part2/Game.obj
+
+# target to build an object file
+Code_Skeleton/Part2/Game.cpp.obj:
+	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/Code_Skeleton/Part2/Game.cpp.obj
+.PHONY : Code_Skeleton/Part2/Game.cpp.obj
+
+Code_Skeleton/Part2/Game.i: Code_Skeleton/Part2/Game.cpp.i
+
+.PHONY : Code_Skeleton/Part2/Game.i
+
+# target to preprocess a source file
+Code_Skeleton/Part2/Game.cpp.i:
+	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/Code_Skeleton/Part2/Game.cpp.i
+.PHONY : Code_Skeleton/Part2/Game.cpp.i
+
+Code_Skeleton/Part2/Game.s: Code_Skeleton/Part2/Game.cpp.s
+
+.PHONY : Code_Skeleton/Part2/Game.s
+
+# target to generate assembly for a file
+Code_Skeleton/Part2/Game.cpp.s:
+	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/Code_Skeleton/Part2/Game.cpp.s
+.PHONY : Code_Skeleton/Part2/Game.cpp.s
+
+Code_Skeleton/Part2/main.obj: Code_Skeleton/Part2/main.cpp.obj
+
+.PHONY : Code_Skeleton/Part2/main.obj
+
+# target to build an object file
+Code_Skeleton/Part2/main.cpp.obj:
+	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/Code_Skeleton/Part2/main.cpp.obj
+.PHONY : Code_Skeleton/Part2/main.cpp.obj
+
+Code_Skeleton/Part2/main.i: Code_Skeleton/Part2/main.cpp.i
+
+.PHONY : Code_Skeleton/Part2/main.i
+
+# target to preprocess a source file
+Code_Skeleton/Part2/main.cpp.i:
+	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/Code_Skeleton/Part2/main.cpp.i
+.PHONY : Code_Skeleton/Part2/main.cpp.i
+
+Code_Skeleton/Part2/main.s: Code_Skeleton/Part2/main.cpp.s
+
+.PHONY : Code_Skeleton/Part2/main.s
+
+# target to generate assembly for a file
+Code_Skeleton/Part2/main.cpp.s:
+	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/Code_Skeleton/Part2/main.cpp.s
+.PHONY : Code_Skeleton/Part2/main.cpp.s
+
+Code_Skeleton/Part2/utils.obj: Code_Skeleton/Part2/utils.cpp.obj
+
+.PHONY : Code_Skeleton/Part2/utils.obj
+
+# target to build an object file
+Code_Skeleton/Part2/utils.cpp.obj:
+	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/Code_Skeleton/Part2/utils.cpp.obj
+.PHONY : Code_Skeleton/Part2/utils.cpp.obj
+
+Code_Skeleton/Part2/utils.i: Code_Skeleton/Part2/utils.cpp.i
+
+.PHONY : Code_Skeleton/Part2/utils.i
+
+# target to preprocess a source file
+Code_Skeleton/Part2/utils.cpp.i:
+	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/Code_Skeleton/Part2/utils.cpp.i
+.PHONY : Code_Skeleton/Part2/utils.cpp.i
+
+Code_Skeleton/Part2/utils.s: Code_Skeleton/Part2/utils.cpp.s
+
+.PHONY : Code_Skeleton/Part2/utils.s
+
+# target to generate assembly for a file
+Code_Skeleton/Part2/utils.cpp.s:
+	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/Code_Skeleton/Part2/utils.cpp.s
+.PHONY : Code_Skeleton/Part2/utils.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -131,6 +212,15 @@ help:
 	@echo ... ex3
 	@echo ... edit_cache
 	@echo ... rebuild_cache
+	@echo ... Code_Skeleton/Part2/Game.obj
+	@echo ... Code_Skeleton/Part2/Game.i
+	@echo ... Code_Skeleton/Part2/Game.s
+	@echo ... Code_Skeleton/Part2/main.obj
+	@echo ... Code_Skeleton/Part2/main.i
+	@echo ... Code_Skeleton/Part2/main.s
+	@echo ... Code_Skeleton/Part2/utils.obj
+	@echo ... Code_Skeleton/Part2/utils.i
+	@echo ... Code_Skeleton/Part2/utils.s
 .PHONY : help
 
 

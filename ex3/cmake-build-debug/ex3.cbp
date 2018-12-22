@@ -99,6 +99,27 @@
 		<Unit filename="C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part1/Semaphore.hpp">
 			<Option target="ex3"/>
 		</Unit>
+		<Unit filename="C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/Game.cpp">
+			<Option target="ex3"/>
+		</Unit>
+		<Unit filename="C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/Game.hpp">
+			<Option target="ex3"/>
+		</Unit>
+		<Unit filename="C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/Thread.hpp">
+			<Option target="ex3"/>
+		</Unit>
+		<Unit filename="C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/main.cpp">
+			<Option target="ex3"/>
+		</Unit>
+		<Unit filename="C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/utils.cpp">
+			<Option target="ex3"/>
+		</Unit>
+		<Unit filename="C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/utils.hpp">
+			<Option target="ex3"/>
+		</Unit>
+		<Unit filename="C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/makefile">
+			<Option target="ex3"/>
+		</Unit>
 		<Unit filename="C:/Users/Liad/Documents/GitHub/234123/ex3/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

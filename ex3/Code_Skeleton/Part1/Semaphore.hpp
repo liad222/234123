@@ -2,7 +2,6 @@
 #define __SEMAPHORE_H
 
 #include "Headers.hpp"
-#include <pthread.h>
 
 // Synchronization Warm up
 class Semaphore {

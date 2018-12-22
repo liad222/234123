@@ -1,6 +1,4 @@
 "C:\Program Files\JetBrains\CLion 2018.2.2\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" C:\Users\Liad\Documents\GitHub\234123\ex3
 -- Configuring done
-CMake Error: CMake can not determine linker language for target: ex3
-CMake Error: Cannot determine link language for target "ex3".
 -- Generating done
 -- Build files have been written to: C:/Users/Liad/Documents/GitHub/234123/ex3/cmake-build-debug
