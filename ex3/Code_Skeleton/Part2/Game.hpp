@@ -4,7 +4,6 @@
 #include <utils.hpp>
 #include "Semaphore.hpp"
 #include "PCQueue.hpp"
-#include "Headers.hpp"
 /*--------------------------------------------------------------------------------
 								  Auxiliary Structures
 --------------------------------------------------------------------------------*/
@@ -27,7 +26,6 @@ public:
 	const vector<float> gen_hist() const; // Returns the generation timing histogram  
 	const vector<float> tile_hist() const; // Returns the tile timing histogram
 	uint thread_num() const; //Returns the effective number of running threads = min(thread_num, field_height)
-	friend int write_next(int i, int j, string str);
 
 protected: // All members here are protected, instead of private for testing purposes
 
@@ -49,15 +47,12 @@ protected: // All members here are protected, instead of private for testing pur
 	inline void print_board(const char* header);
 	// TODO: Add in your variables and synchronization primitives
 	game_params gparams;
-	vector<string> *curr;
-	vector<string> *next;
-	vector<string> boards[2];
+	bool_mat *curr;
+	bool_mat *next;
+	bool_mat boards[2];
 	uint row;
 	uint col;
 	Semaphore lock;
-	PCQueue<uint*> tasks;
+	PCQueue<int*> tasks;
 };
-int write_next(int i, int j, string str){
-
-}
 #endif
