@@ -3,33 +3,40 @@
 /*--------------------------------------------------------------------------------
 								
 --------------------------------------------------------------------------------*/
-void string2bool(game_params g, bool_mat x) {
+void string2bool(game_params g, bool_mat *x) {
     vector<string> temp = utils::read_lines(g.filename);
     uint col = (temp.front()).length();
     uint row = temp.size();
-    for (int i = 0; i < row; ++i) {
-        for (int j = 0; j < col; ++j) {
-            x[row][col] = ((temp[i])[j] == '1');
+        for (uint i = 0; i < row; ++i) {
+        vector<bool> line;
+        for (uint j = 0; j < col; ++j) {
+            if (((temp[i])[j] == ' '))
+                continue;
+            bool val = ((temp[i])[j] == '1');
+            line.push_back(val);
         }
+        x->push_back(line);
     }
 }
 
 Game::Game(game_params g) {
-    cout << "<------------" << "HERE1" << "------------>" << endl;
     gparams = g;
+    m_gen_num = g.n_gen;
     interactive_on = g.interactive_on;
     print_on = g.print_on;
-    string2bool(g, boards[0]);
-    string2bool(g, boards[1]);
+    boards[0] = vector<vector<bool>>();
+    boards[1] = vector<vector<bool>>();
+    string2bool(g, &(boards[0]));
+    string2bool(g, &(boards[1]));
     curr = &boards[0];
     next = &boards[1];
-    row = boards[0].size();
-    col = (boards[0].front()).size();
+    row = (*curr).size();
+    col = ((*curr)[0]).size();
     m_thread_num = thread_num();
     lock = Semaphore(1);
     tasks = PCQueue<int *>();
     tasks_completed = PCQueue<int *>();
-    cout << "<------------" << "HERE2" << "------------>" << endl;
+    m_threadpool = vector<Thread*>();
 }
 
 
@@ -41,18 +48,15 @@ uint Game::thread_num() const {
 }
 
 void Game::run() {
-    cout << "<------------" << "HERE3" << "------------>" << endl;
     _init_game(); // Starts the threads and all other variables you need
     print_board("Initial Board");
     for (uint i = 0; i < m_gen_num; ++i) {
         auto gen_start = std::chrono::system_clock::now();
-        cout << "<------------" << "HERE4" << "------------>" << endl;
         _step(i); // Iterates a single generation
         auto gen_end = std::chrono::system_clock::now();
         m_gen_hist.push_back(
                 (float) std::chrono::duration_cast<std::chrono::microseconds>(
                         gen_end - gen_start).count());
-        cout << "<------------" << "HERE5" << "------------>" << endl;
         print_board(NULL);
     } // generation loop
     print_board("Final Board");
@@ -65,11 +69,12 @@ void Game::_init_game() {
     // Start the threads
     // Testing of your implementation will presume all threads are started here
     for (int i = 0; i < m_thread_num; ++i) {
-        m_threadpool[i] = new game_Thread(i, curr, next, row, col, &tasks,&tasks_completed,
-                                          &lock);
+        m_threadpool.push_back(new game_Thread(i, &curr, &next, row, col, &tasks,
+                                               &tasks_completed,
+                                               &lock));
     }
     for (int i = 0; i < m_thread_num; ++i) {
-        m_threadpool[i]->start();
+        (m_threadpool[i])->start();
     }
 }
 
@@ -88,7 +93,8 @@ void Game::_step(uint curr_gen) {
     arr[1] = row - 1;
     tasks.push(arr);
     ///waiting for the threads to finish
-    while(tasks_completed.getQueueSize()!=m_thread_num) ;///thread_num is also the number of tasks
+    while (tasks_completed.getQueueSize() !=
+           m_thread_num);///thread_num is also the number of tasks
     /*
     int allDone = 0;
     while(allDone != m_thread_num) {
@@ -101,7 +107,7 @@ void Game::_step(uint curr_gen) {
     }
     */
     ///emptying the task _completed q for the next run
-    while(tasks_completed.getQueueSize()!=0) {
+    while (tasks_completed.getQueueSize() != 0) {
         tasks_completed.pop();
     }
 
@@ -123,7 +129,7 @@ void Game::_destroy_game() {
     int arr[2];
     arr[0] = -1;
     arr[1] = -1;
-    for (int i = 0; i < m_thread_num - 1; ++i) {
+    for (int i = 0; i < m_thread_num; ++i) {
         tasks.push(arr);
     }
     for (int i = 0; i < m_thread_num; ++i) {
@@ -132,13 +138,13 @@ void Game::_destroy_game() {
     for (int i = 0; i < m_thread_num; ++i) {
         delete m_threadpool[i];
     }
+
 }
 
 /*--------------------------------------------------------------------------------
 								
 --------------------------------------------------------------------------------*/
 inline void Game::print_board(const char *header) {
-
     if (print_on) {
 
         // Clear the screen, to create a running animation

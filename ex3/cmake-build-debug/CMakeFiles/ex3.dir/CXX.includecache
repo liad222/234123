@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-../Code_Skeleton/Part1/Headers.hpp
+C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part1/Headers.hpp
 vector
 -
 string
@@ -36,59 +36,35 @@ unistd.h
 pthread.h
 -
 
-../Code_Skeleton/Part1/PCQueue.hpp
+C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part1/PCQueue.hpp
 Headers.hpp
-../Code_Skeleton/Part1/Headers.hpp
+C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part1/Headers.hpp
 
-../Code_Skeleton/Part1/Semaphore.hpp
+C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part1/Semaphore.hpp
 Headers.hpp
-../Code_Skeleton/Part1/Headers.hpp
-
-../Code_Skeleton/Part2/Game.hpp
-Thread.hpp
-../Code_Skeleton/Part2/Thread.hpp
-utils.hpp
--
-Semaphore.hpp
-../Code_Skeleton/Part2/Semaphore.hpp
-PCQueue.hpp
-../Code_Skeleton/Part2/PCQueue.hpp
-
-../Code_Skeleton/Part2/Thread.hpp
-PCQueue.hpp
-../Code_Skeleton/Part2/PCQueue.hpp
-Semaphore.hpp
-../Code_Skeleton/Part2/Semaphore.hpp
-
-../Code_Skeleton/Part2/utils.hpp
-Headers.hpp
-../Code_Skeleton/Part2/Headers.hpp
+C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part1/Headers.hpp
 
 C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/Game.cpp
 Game.hpp
--
+C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/Game.hpp
 
 C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/Game.hpp
 Thread.hpp
 C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/Thread.hpp
 utils.hpp
--
-Semaphore.hpp
-C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/Semaphore.hpp
-PCQueue.hpp
-C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/PCQueue.hpp
+C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/utils.hpp
+../Part1/Semaphore.hpp
+C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part1/Semaphore.hpp
+../Part1/PCQueue.hpp
+C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part1/PCQueue.hpp
 
 C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/Thread.hpp
-PCQueue.hpp
-C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/PCQueue.hpp
-Semaphore.hpp
-C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/Semaphore.hpp
+../Part1/PCQueue.hpp
+C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part1/PCQueue.hpp
+../Part1/Semaphore.hpp
+C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part1/Semaphore.hpp
 
-C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/main.cpp
-Game.hpp
-C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/Game.hpp
-
-C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/utils.cpp
-utils.hpp
--
+C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/utils.hpp
+../Part1/Headers.hpp
+C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part1/Headers.hpp
 

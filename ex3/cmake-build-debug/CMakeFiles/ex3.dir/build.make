@@ -57,7 +57,6 @@ include CMakeFiles/ex3.dir/progress.make
 include CMakeFiles/ex3.dir/flags.make
 
 CMakeFiles/ex3.dir/Code_Skeleton/Part2/Game.cpp.obj: CMakeFiles/ex3.dir/flags.make
-CMakeFiles/ex3.dir/Code_Skeleton/Part2/Game.cpp.obj: CMakeFiles/ex3.dir/includes_CXX.rsp
 CMakeFiles/ex3.dir/Code_Skeleton/Part2/Game.cpp.obj: ../Code_Skeleton/Part2/Game.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Liad\Documents\GitHub\234123\ex3\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/ex3.dir/Code_Skeleton/Part2/Game.cpp.obj"
 	C:\TDM-GCC-64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\ex3.dir\Code_Skeleton\Part2\Game.cpp.obj -c C:\Users\Liad\Documents\GitHub\234123\ex3\Code_Skeleton\Part2\Game.cpp
@@ -71,7 +70,6 @@ CMakeFiles/ex3.dir/Code_Skeleton/Part2/Game.cpp.s: cmake_force
 	C:\TDM-GCC-64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Liad\Documents\GitHub\234123\ex3\Code_Skeleton\Part2\Game.cpp -o CMakeFiles\ex3.dir\Code_Skeleton\Part2\Game.cpp.s
 
 CMakeFiles/ex3.dir/Code_Skeleton/Part2/main.cpp.obj: CMakeFiles/ex3.dir/flags.make
-CMakeFiles/ex3.dir/Code_Skeleton/Part2/main.cpp.obj: CMakeFiles/ex3.dir/includes_CXX.rsp
 CMakeFiles/ex3.dir/Code_Skeleton/Part2/main.cpp.obj: ../Code_Skeleton/Part2/main.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Liad\Documents\GitHub\234123\ex3\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/ex3.dir/Code_Skeleton/Part2/main.cpp.obj"
 	C:\TDM-GCC-64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\ex3.dir\Code_Skeleton\Part2\main.cpp.obj -c C:\Users\Liad\Documents\GitHub\234123\ex3\Code_Skeleton\Part2\main.cpp
@@ -85,7 +83,6 @@ CMakeFiles/ex3.dir/Code_Skeleton/Part2/main.cpp.s: cmake_force
 	C:\TDM-GCC-64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Liad\Documents\GitHub\234123\ex3\Code_Skeleton\Part2\main.cpp -o CMakeFiles\ex3.dir\Code_Skeleton\Part2\main.cpp.s
 
 CMakeFiles/ex3.dir/Code_Skeleton/Part2/utils.cpp.obj: CMakeFiles/ex3.dir/flags.make
-CMakeFiles/ex3.dir/Code_Skeleton/Part2/utils.cpp.obj: CMakeFiles/ex3.dir/includes_CXX.rsp
 CMakeFiles/ex3.dir/Code_Skeleton/Part2/utils.cpp.obj: ../Code_Skeleton/Part2/utils.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Liad\Documents\GitHub\234123\ex3\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/ex3.dir/Code_Skeleton/Part2/utils.cpp.obj"
 	C:\TDM-GCC-64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\ex3.dir\Code_Skeleton\Part2\utils.cpp.obj -c C:\Users\Liad\Documents\GitHub\234123\ex3\Code_Skeleton\Part2\utils.cpp

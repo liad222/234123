@@ -4,20 +4,20 @@
 CMakeFiles/ex3.dir/Code_Skeleton/Part2/Game.cpp.obj: ../Code_Skeleton/Part1/Headers.hpp
 CMakeFiles/ex3.dir/Code_Skeleton/Part2/Game.cpp.obj: ../Code_Skeleton/Part1/PCQueue.hpp
 CMakeFiles/ex3.dir/Code_Skeleton/Part2/Game.cpp.obj: ../Code_Skeleton/Part1/Semaphore.hpp
+CMakeFiles/ex3.dir/Code_Skeleton/Part2/Game.cpp.obj: ../Code_Skeleton/Part2/Game.cpp
 CMakeFiles/ex3.dir/Code_Skeleton/Part2/Game.cpp.obj: ../Code_Skeleton/Part2/Game.hpp
 CMakeFiles/ex3.dir/Code_Skeleton/Part2/Game.cpp.obj: ../Code_Skeleton/Part2/Thread.hpp
 CMakeFiles/ex3.dir/Code_Skeleton/Part2/Game.cpp.obj: ../Code_Skeleton/Part2/utils.hpp
-CMakeFiles/ex3.dir/Code_Skeleton/Part2/Game.cpp.obj: ../Code_Skeleton/Part2/Game.cpp
 
 CMakeFiles/ex3.dir/Code_Skeleton/Part2/main.cpp.obj: ../Code_Skeleton/Part1/Headers.hpp
 CMakeFiles/ex3.dir/Code_Skeleton/Part2/main.cpp.obj: ../Code_Skeleton/Part1/PCQueue.hpp
 CMakeFiles/ex3.dir/Code_Skeleton/Part2/main.cpp.obj: ../Code_Skeleton/Part1/Semaphore.hpp
-CMakeFiles/ex3.dir/Code_Skeleton/Part2/main.cpp.obj: ../Code_Skeleton/Part2/utils.hpp
 CMakeFiles/ex3.dir/Code_Skeleton/Part2/main.cpp.obj: ../Code_Skeleton/Part2/Game.hpp
 CMakeFiles/ex3.dir/Code_Skeleton/Part2/main.cpp.obj: ../Code_Skeleton/Part2/Thread.hpp
 CMakeFiles/ex3.dir/Code_Skeleton/Part2/main.cpp.obj: ../Code_Skeleton/Part2/main.cpp
+CMakeFiles/ex3.dir/Code_Skeleton/Part2/main.cpp.obj: ../Code_Skeleton/Part2/utils.hpp
 
 CMakeFiles/ex3.dir/Code_Skeleton/Part2/utils.cpp.obj: ../Code_Skeleton/Part1/Headers.hpp
-CMakeFiles/ex3.dir/Code_Skeleton/Part2/utils.cpp.obj: ../Code_Skeleton/Part2/utils.hpp
 CMakeFiles/ex3.dir/Code_Skeleton/Part2/utils.cpp.obj: ../Code_Skeleton/Part2/utils.cpp
+CMakeFiles/ex3.dir/Code_Skeleton/Part2/utils.cpp.obj: ../Code_Skeleton/Part2/utils.hpp
 

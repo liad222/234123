@@ -10,13 +10,12 @@ public:
         // Only places thread_id
         this->m_thread_id = m_thread_id;
     }
-
+    int test;
     virtual ~Thread() {} // Does nothing
 
     /** Returns true if the thread was successfully started, false if there was an error starting the thread */
     bool start() {
-        pthread_t th;
-        if (pthread_create(&th, NULL, entry_func, &th) == 0)
+        if (pthread_create(&m_thread, NULL, entry_func, this) == 0)
             return true;
         return false;
     }
@@ -34,8 +33,6 @@ public:
 protected:
     /** Implement this method in your subclass with the code you want your thread to run. */
     virtual void thread_workload() = 0;
-
-    int done;
     uint m_thread_id; // A number from 0 -> Number of threads initialized, providing a simple numbering for you to use
 
 private:
@@ -50,8 +47,8 @@ private:
 
 class game_Thread : public Thread {
 private:
-    bool_mat *curr;
-    bool_mat *next;
+    bool_mat **curr;
+    bool_mat **next;
     uint row;
     uint col;
     PCQueue<int *> *tasks;
@@ -61,10 +58,11 @@ private:
 
 
 public:
-    game_Thread(uint m_thread_id, bool_mat *curr, bool_mat *next,
-                uint row, uint col, PCQueue<int *> *tasks,PCQueue<int *> *tasks_completed, Semaphore *lock) :
-            Thread(m_thread_id), curr(curr), next(next),
-            row(row), col(col), tasks(tasks),tasks_completed(tasks_completed), lock(lock) {}
+    game_Thread(uint m_thread_id, bool_mat **curr, bool_mat **next,
+                uint row, uint col, PCQueue<int *> *tasks,
+                PCQueue<int *> *tasks_completed, Semaphore *lock) :
+                Thread(m_thread_id),curr(curr), next(next), row(row), col(col),
+                tasks(tasks), tasks_completed(tasks_completed), lock(lock) {}
 
     game_Thread() : Thread() {}
 
@@ -78,6 +76,7 @@ public:
             int counter = 0;
             for (int i = lines_Nums[0]; i <= lines_Nums[1]; ++i) { //row
                 for (int j = 0; j < col; ++j) {                   //col
+                    counter = 0;
                     for (int l = -1; l < 2; ++l) {//rows
                         for (int k = -1; k < 2; ++k) { //cols
                             if (l == 0 && k == 0) {
@@ -89,7 +88,7 @@ public:
                             if (j + k < 0 || j + k >= col) {
                                 continue;
                             }
-                            if ((*curr)[i + l][j + k] == true) {
+                            if ((**curr)[i + l][j + k] == true) {
                                 counter++;
                             }
                         }
@@ -99,7 +98,7 @@ public:
                         write_Next(i, j, true);
                         continue;
                     }
-                    if (counter == 2 && (*curr)[i][j] == true) {
+                    if (counter == 2 && (**curr)[i][j] == true) {
                         write_Next(i, j, true);
                         continue;
                     }
@@ -112,7 +111,7 @@ public:
 
     void write_Next(int x, int y, bool val) {
         lock->down();
-        (*next)[x][y] = val;
+        (**next)[x][y] = val;
         lock->up();
     }
 
