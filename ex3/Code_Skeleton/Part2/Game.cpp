@@ -68,8 +68,6 @@ void Game::_init_game() {
     for (int i = 0; i < m_thread_num; ++i) {
         m_threadpool[i]->start();
     }
-    print_board("starting board\n");
-    getchar();
 }
 
 void Game::_step(uint curr_gen) {
