@@ -23,8 +23,10 @@ public:
 	explicit Game(game_params);
 	~Game(){};
 	void run(); // Runs the game
-	const vector<float> gen_hist() const; // Returns the generation timing histogram  
-	const vector<float> tile_hist() const; // Returns the tile timing histogram
+	//TODO
+//	const vector<float> gen_hist() const; // Returns the generation timing histogram
+//	const vector<float> tile_hist() const; // Returns the tile timing histogram
+
 	uint thread_num() const; //Returns the effective number of running threads = min(thread_num, field_height)
 
 protected: // All members here are protected, instead of private for testing purposes
@@ -54,5 +56,6 @@ protected: // All members here are protected, instead of private for testing pur
 	uint col;
 	Semaphore lock;
 	PCQueue<int*> tasks;
+    PCQueue<int*> tasks_completed;
 };
 #endif

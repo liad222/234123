@@ -1,0 +1,3 @@
+D:/github/234123/ex3/Code_Skeleton/cmake-build-debug/CMakeFiles/Code_Skeleton.dir
+D:/github/234123/ex3/Code_Skeleton/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/github/234123/ex3/Code_Skeleton/cmake-build-debug/CMakeFiles/rebuild_cache.dir

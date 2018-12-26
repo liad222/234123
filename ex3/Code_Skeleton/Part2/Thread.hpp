@@ -8,7 +8,6 @@ class Thread {
 public:
     Thread(uint m_thread_id = 0) {
         // Only places thread_id
-        done = 0;
         this->m_thread_id = m_thread_id;
     }
 
@@ -30,15 +29,6 @@ public:
     /** Returns the thread_id **/
     uint thread_id() {
         return m_thread_id;
-    }
-
-    int getDone() {
-        return done;
-    }
-
-    int setDone(int val) {
-        done = val;
-        return done;
     }
 
 protected:
@@ -65,15 +55,16 @@ private:
     uint row;
     uint col;
     PCQueue<int *> *tasks;
+    PCQueue<int *> *tasks_completed;
     Semaphore *lock;
     int *lines_Nums;
 
 
 public:
     game_Thread(uint m_thread_id, bool_mat *curr, bool_mat *next,
-                uint row, uint col, PCQueue<int *> *tasks, Semaphore *lock) :
+                uint row, uint col, PCQueue<int *> *tasks,PCQueue<int *> *tasks_completed, Semaphore *lock) :
             Thread(m_thread_id), curr(curr), next(next),
-            row(row), col(col), tasks(tasks), lock(lock) {}
+            row(row), col(col), tasks(tasks),tasks_completed(tasks_completed), lock(lock) {}
 
     game_Thread() : Thread() {}
 
@@ -84,7 +75,6 @@ public:
             lines_Nums = tasks->pop();
             if (lines_Nums[0] == -1 && lines_Nums[1] == -1)
                 break;
-            done = 0;
             int counter = 0;
             for (int i = lines_Nums[0]; i <= lines_Nums[1]; ++i) { //row
                 for (int j = 0; j < col; ++j) {                   //col
@@ -116,7 +106,7 @@ public:
                     write_Next(i, j, false);
                 }
             }
-            done = 1;
+            tasks_completed->push(lines_Nums);
         }
     }
 

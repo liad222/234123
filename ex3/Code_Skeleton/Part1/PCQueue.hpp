@@ -28,6 +28,7 @@ public:
 		consumerInside++;
 		pthread_mutex_unlock(&GLock);
 	}
+
 	void consumerUnlock(){
 		pthread_mutex_lock(&GLock);
 		consumerInside--;
@@ -74,6 +75,12 @@ public:
 		producerLock();
 		items.push(item);
 		producerUnlock();
+	}
+
+	//returns the size of
+	int getQueueSize(){
+		int x=items.size();
+		return x;
 	}
 
 

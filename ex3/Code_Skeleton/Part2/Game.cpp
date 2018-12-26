@@ -28,6 +28,7 @@ Game::Game(game_params g) {
     m_thread_num = thread_num();
     lock = Semaphore(1);
     tasks = PCQueue<int *>();
+    tasks_completed = PCQueue<int *>();
 }
 
 
@@ -61,12 +62,14 @@ void Game::_init_game() {
     // Start the threads
     // Testing of your implementation will presume all threads are started here
     for (int i = 0; i < m_thread_num; ++i) {
-        m_threadpool[i] = new game_Thread(i, curr, next, row, col, &tasks,
+        m_threadpool[i] = new game_Thread(i, curr, next, row, col, &tasks,&tasks_completed,
                                           &lock);
     }
     for (int i = 0; i < m_thread_num; ++i) {
         m_threadpool[i]->start();
     }
+    print_board("starting board\n");
+    getchar();
 }
 
 void Game::_step(uint curr_gen) {
@@ -83,6 +86,9 @@ void Game::_step(uint curr_gen) {
     arr[0] = diff * (m_thread_num - 1);
     arr[1] = row - 1;
     tasks.push(arr);
+    ///waiting for the threads to finish
+    while(tasks_completed.getQueueSize()!=m_thread_num) ;///thread_num is also the number of tasks
+    /*
     int allDone = 0;
     while(allDone != m_thread_num) {
         allDone = 0;
@@ -92,9 +98,18 @@ void Game::_step(uint curr_gen) {
             }
         }
     }
+    */
+    ///emptying the task _completed q for the next run
+    while(tasks_completed.getQueueSize()!=0) {
+        tasks_completed.pop();
+    }
+
+
+    /* restarting the done flag
     for (int j = 0; j < m_thread_num; ++j) {
         m_threadpool[j]->setDone(0);
-    }
+    }*/
+    ///swap
     bool_mat *temp = curr;
     curr = next;
     next = temp;
