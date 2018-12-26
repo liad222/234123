@@ -1,9 +1,9 @@
 #ifndef __GAMERUN_H
 #define __GAMERUN_H
 #include "Thread.hpp"
-#include <utils.hpp>
-#include "Semaphore.hpp"
-#include "PCQueue.hpp"
+#include "utils.hpp"
+#include "../Part1/Semaphore.hpp"
+#include "../Part1/PCQueue.hpp"
 /*--------------------------------------------------------------------------------
 								  Auxiliary Structures
 --------------------------------------------------------------------------------*/

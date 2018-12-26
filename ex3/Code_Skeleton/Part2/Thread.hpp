@@ -1,8 +1,8 @@
 #ifndef __THREAD_H
 #define __THREAD_H
 
-#include "PCQueue.hpp"
-#include "Semaphore.hpp"
+#include "../Part1/PCQueue.hpp"
+#include "../Part1/Semaphore.hpp"
 
 class Thread {
 public:

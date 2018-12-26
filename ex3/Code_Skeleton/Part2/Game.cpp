@@ -15,7 +15,7 @@ void string2bool(game_params g, bool_mat x) {
 }
 
 Game::Game(game_params g) {
-    m_gen_num = g.n_gen;
+    cout << "<------------" << "HERE1" << "------------>" << endl;
     gparams = g;
     interactive_on = g.interactive_on;
     print_on = g.print_on;
@@ -29,6 +29,7 @@ Game::Game(game_params g) {
     lock = Semaphore(1);
     tasks = PCQueue<int *>();
     tasks_completed = PCQueue<int *>();
+    cout << "<------------" << "HERE2" << "------------>" << endl;
 }
 
 
@@ -40,16 +41,18 @@ uint Game::thread_num() const {
 }
 
 void Game::run() {
-
+    cout << "<------------" << "HERE3" << "------------>" << endl;
     _init_game(); // Starts the threads and all other variables you need
     print_board("Initial Board");
     for (uint i = 0; i < m_gen_num; ++i) {
         auto gen_start = std::chrono::system_clock::now();
+        cout << "<------------" << "HERE4" << "------------>" << endl;
         _step(i); // Iterates a single generation
         auto gen_end = std::chrono::system_clock::now();
         m_gen_hist.push_back(
                 (float) std::chrono::duration_cast<std::chrono::microseconds>(
                         gen_end - gen_start).count());
+        cout << "<------------" << "HERE5" << "------------>" << endl;
         print_board(NULL);
     } // generation loop
     print_board("Final Board");
