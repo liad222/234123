@@ -82,16 +82,18 @@ void Game::_step(uint curr_gen) {
     // Push jobs to queue
     // Wait for the workers to finish calculating
     // Swap pointers between current and next field
-    int arr[2];
+
     int diff = row / m_thread_num;
     for (int i = 0; i < m_thread_num - 1; ++i) {
+        int *arr = new int[2];
         arr[0] = diff * i;
         arr[1] = diff * (i + 1) - 1;
         tasks.push(arr);
     }
-    arr[0] = diff * (m_thread_num - 1);
-    arr[1] = row - 1;
-    tasks.push(arr);
+    int *farr = new int[2];
+    farr[0] = diff * (m_thread_num - 1);
+    farr[1] = row - 1;
+    tasks.push(farr);
     ///waiting for the threads to finish
     while (tasks_completed.getQueueSize() !=
            m_thread_num);///thread_num is also the number of tasks
@@ -135,8 +137,8 @@ void Game::_destroy_game() {
     for (int i = 0; i < m_thread_num; ++i) {
         m_threadpool[i]->join();
     }
-    for (int i = 0; i < m_thread_num; ++i) {
-        delete m_threadpool[i];
+    while (!m_threadpool.empty()){
+        m_threadpool.pop_back();
     }
 
 }

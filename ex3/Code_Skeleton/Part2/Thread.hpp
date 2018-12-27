@@ -10,7 +10,6 @@ public:
         // Only places thread_id
         this->m_thread_id = m_thread_id;
     }
-    int test;
     virtual ~Thread() {} // Does nothing
 
     /** Returns true if the thread was successfully started, false if there was an error starting the thread */
@@ -71,6 +70,12 @@ public:
     void thread_workload() override {
         while (1) {
             lines_Nums = tasks->pop();
+            if(lines_Nums == NULL){
+                continue;
+            }
+            int* address = lines_Nums;
+            int first = lines_Nums[0];
+            int second = lines_Nums[1];
             if (lines_Nums[0] == -1 && lines_Nums[1] == -1)
                 break;
             int counter = 0;
