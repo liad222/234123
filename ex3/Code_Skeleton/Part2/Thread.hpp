@@ -70,14 +70,10 @@ public:
     void thread_workload() override {
         while (1) {
             lines_Nums = tasks->pop();
-            if(lines_Nums == NULL){
-                continue;
-            }
-            int* address = lines_Nums;
-            int first = lines_Nums[0];      //TODO DEBUG
-            int second = lines_Nums[1];
-            if (lines_Nums[0] == -1 && lines_Nums[1] == -1)
+            if (lines_Nums[0] == -1 && lines_Nums[1] == -1){
+                tasks_completed->push(lines_Nums);
                 break;
+            }
             int counter = 0;
             for (int i = lines_Nums[0]; i <= lines_Nums[1]; ++i) { //row
                 for (int j = 0; j < col; ++j) {                   //col

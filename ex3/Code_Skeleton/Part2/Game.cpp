@@ -84,25 +84,26 @@ void Game::_step(uint curr_gen) {
     // Swap pointers between current and next field
 
     int diff = row / m_thread_num;
+    int **arr = new int* [m_thread_num+1];
     for (int i = 0; i < m_thread_num - 1; ++i) {
-        int *arr = new int[2];
-        arr[0] = diff * i;
-        arr[1] = diff * (i + 1) - 1;
-        tasks.push(arr);
+         arr[i] = new int[2];
+        (arr[i])[0] = diff * i;
+        (arr[i])[1] = diff * (i + 1) - 1;
     }
-    int *farr = new int[2];
-    farr[0] = diff * (m_thread_num - 1);
-    farr[1] = row - 1;
-    tasks.push(farr);
+    arr[m_thread_num - 1] = new int[2];
+    (arr[m_thread_num - 1])[0] = diff * (m_thread_num - 1);
+    (arr[m_thread_num - 1])[1] = row - 1;
+    arr[m_thread_num] = nullptr;
+    tasks.pushmany(arr);
     ///waiting for the threads to finish
     while (tasks_completed.getQueueSize() != m_thread_num);///thread_num is also the number of tasks
 
     ///emptying the task _completed q for the next run
     while (tasks_completed.getQueueSize() != 0) {
-        int *task =tasks_completed.pop();
-        delete[] task;
+       int *temp =  tasks_completed.pop();
+       delete[](temp);
     }
-
+    delete[](arr);
     ///swap
     bool_mat *temp = curr;
     curr = next;
@@ -113,20 +114,27 @@ void Game::_destroy_game() {
     // Destroys board and frees all threads and resources
     // Not implemented in the Game's destructor for testing purposes.
     // Testing of your implementation will presume all threads are joined here
-    int arr[2];
-    arr[0] = -1;
-    arr[1] = -1;
+    int **arr = new int* [m_thread_num+1];
     for (int i = 0; i < m_thread_num; ++i) {
-        tasks.push(arr);
+        arr[i] = new int[2];
+        (arr[i])[0] = -1;
+        (arr[i])[1] = -1;
     }
+    arr[m_thread_num] = nullptr;
+    tasks.pushmany(arr);
     for (int i = 0; i < m_thread_num; ++i) {
         m_threadpool[i]->join();
     }
+    while (tasks_completed.getQueueSize() != 0) {
+        int *temp =  tasks_completed.pop();
+        delete[](temp);
+    }
+    delete[](arr);
     while (!m_threadpool.empty()){
-         delete m_threadpool.front();       ///not sure if correct,from what i understand we alocated the
+        Thread* temp = m_threadpool.back();       ///not sure if correct,from what i understand we alocated the
         /// "game_Threads" so we need to delete them, the waiting only works the the thread itself not for the class
         m_threadpool.pop_back();
-
+        delete temp;
     }
 
 }
