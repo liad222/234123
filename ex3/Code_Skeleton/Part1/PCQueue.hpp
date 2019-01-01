@@ -17,7 +17,8 @@ public:
 		pthread_mutex_t error_check_mutex;
 		pthread_mutex_init(&error_check_mutex, &attr);
 		GLock = error_check_mutex;
-        items = queue<T>();
+		queue<T> new_items;
+		items = new_items;
 		size=0;				//TODO DEBUG
 	}
 
@@ -40,7 +41,7 @@ public:
 	void producerLock(){
 		pthread_mutex_lock(&GLock);
 		producerWaiting++;
-		while(producerInside > 0 || consumerInside > 0)
+		while(producerInside + consumerInside > 0)
 			pthread_cond_wait(&producerCond,&GLock);
 		producerWaiting--;
 		producerInside++;
@@ -62,7 +63,7 @@ public:
 	// Assumes multiple consumers.
 	T pop(){
 		consumerLock();
-		T temp = items.front();
+		T &temp = items.front();
 		items.pop();
 		size--;				//TODO DEBUG
 		consumerUnlock();
@@ -78,18 +79,6 @@ public:
 		size ++;			//TODO DEBUG
 		producerUnlock();
 	}
-
-
-    void pushmany(T* itemarr){
-        producerLock();
-        int i=0;
-        while(itemarr[i] != nullptr) {
-            items.push(itemarr[i]);
-            size++;
-            i++;
-        }
-        producerUnlock();
-    }
 
 	//returns the size of
 	int getQueueSize(){
