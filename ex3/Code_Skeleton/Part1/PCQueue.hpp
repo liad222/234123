@@ -19,6 +19,7 @@ public:
 		GLock = error_check_mutex;
 		queue<T> new_items;
 		items = new_items;
+		size=0;				//TODO DEBUG
 	}
 
 	void consumerLock(){
@@ -64,6 +65,7 @@ public:
 		consumerLock();
 		T &temp = items.front();
 		items.pop();
+		size--;				//TODO DEBUG
 		consumerUnlock();
 		return temp;
 	}
@@ -74,6 +76,7 @@ public:
 	void push(const T& item){
 		producerLock();
 		items.push(item);
+		size ++;			//TODO DEBUG
 		producerUnlock();
 	}
 
@@ -90,6 +93,7 @@ private:
 	pthread_cond_t producerCond;
 	pthread_cond_t consumerCond;
 	queue<T> items;
+	int size;			//TODO DEBUG
 };
 // Recommendation: Use the implementation of the std::queue for this exercise
 #endif

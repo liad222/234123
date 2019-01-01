@@ -74,7 +74,7 @@ public:
                 continue;
             }
             int* address = lines_Nums;
-            int first = lines_Nums[0];
+            int first = lines_Nums[0];      //TODO DEBUG
             int second = lines_Nums[1];
             if (lines_Nums[0] == -1 && lines_Nums[1] == -1)
                 break;

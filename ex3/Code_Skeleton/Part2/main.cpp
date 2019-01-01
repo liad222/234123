@@ -8,7 +8,7 @@ static void calc_and_append_statistics(uint n_threads, const vector<float>& gen_
 										Main
 --------------------------------------------------------------------------------*/
 int main() {
-	char* argv[6] = {"","tiny.txt","100","6","N","Y"};
+	char* argv[6] = {"","tiny.txt","20","100","N","Y"};
 	int argc = 6;
 	game_params params = parse_input_args(argc, argv);
 	Game g(params);
