@@ -95,14 +95,29 @@ void Game::_step(uint curr_gen) {
     farr[1] = row - 1;
     tasks.push(farr);
     ///waiting for the threads to finish
-    while (tasks_completed.getQueueSize() != m_thread_num);///thread_num is also the number of tasks
-
+    while (tasks_completed.getQueueSize() !=
+           m_thread_num);///thread_num is also the number of tasks
+    /*
+    int allDone = 0;
+    while(allDone != m_thread_num) {
+        allDone = 0;
+        for (int j = 0; j < m_thread_num; ++j) {
+            if(m_threadpool[j]->getDone() == 1){
+                allDone++;
+            }
+        }
+    }
+    */
     ///emptying the task _completed q for the next run
     while (tasks_completed.getQueueSize() != 0) {
-        int *task =tasks_completed.pop();
-        delete[] task;
+        tasks_completed.pop();
     }
 
+
+    /* restarting the done flag
+    for (int j = 0; j < m_thread_num; ++j) {
+        m_threadpool[j]->setDone(0);
+    }*/
     ///swap
     bool_mat *temp = curr;
     curr = next;
@@ -123,10 +138,7 @@ void Game::_destroy_game() {
         m_threadpool[i]->join();
     }
     while (!m_threadpool.empty()){
-         delete m_threadpool.front();       ///not sure if correct,from what i understand we alocated the
-        /// "game_Threads" so we need to delete them, the waiting only works the the thread itself not for the class
         m_threadpool.pop_back();
-
     }
 
 }
