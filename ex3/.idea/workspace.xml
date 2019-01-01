@@ -66,7 +66,7 @@
     <session id="1915932743">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="13" />
+          <entry key="project.closed" value="14" />
           <entry key="project.open.time.0" value="3" />
           <entry key="project.open.time.5" value="3" />
           <entry key="project.open.time.6" value="6" />
@@ -98,7 +98,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="cpp" value="2626" />
+          <entry key="cpp" value="2627" />
           <entry key="hpp" value="2968" />
           <entry key="mm" value="5" />
           <entry key="txt" value="15" />
@@ -107,7 +107,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CMakeLists.txt" value="15" />
-          <entry key="ObjectiveC" value="5599" />
+          <entry key="ObjectiveC" value="5600" />
         </counts>
       </usages-collector>
     </session>
@@ -123,20 +123,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Code_Skeleton/Part2/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="43" selection-start-line="11" selection-start-column="43" selection-end-line="11" selection-end-column="43" />
+            <state relative-caret-position="2">
+              <caret line="11" column="35" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Code_Skeleton/Part2/Game.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="88">
-              <caret line="106" column="7" selection-start-line="106" selection-start-column="7" selection-end-line="106" selection-end-column="7" />
+            <state relative-caret-position="2">
+              <caret line="121" column="25" lean-forward="true" selection-start-line="121" selection-start-column="25" selection-end-line="121" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -198,8 +198,8 @@
         <option value="$PROJECT_DIR$/Code_Skeleton/Part2/Game.hpp" />
         <option value="$PROJECT_DIR$/Code_Skeleton/Part2/Thread.hpp" />
         <option value="$PROJECT_DIR$/Code_Skeleton/Part1/PCQueue.hpp" />
-        <option value="$PROJECT_DIR$/Code_Skeleton/Part2/main.cpp" />
         <option value="$PROJECT_DIR$/Code_Skeleton/Part2/Game.cpp" />
+        <option value="$PROJECT_DIR$/Code_Skeleton/Part2/main.cpp" />
       </list>
     </option>
   </component>
@@ -210,7 +210,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-12" />
     <option name="width" value="981" />
     <option name="height" value="1032" />
@@ -326,12 +326,12 @@
       <workItem from="1546348859796" duration="14000" />
       <workItem from="1546348942087" duration="176000" />
       <workItem from="1546349212547" duration="10443000" />
-      <workItem from="1546363658185" duration="4736000" />
+      <workItem from="1546363658185" duration="4890000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="86763000" />
+    <option name="totallyTimeSpent" value="86917000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -344,7 +344,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.48229343" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -507,17 +506,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Code_Skeleton/Part2/main.cpp">
+    <entry file="file://$PROJECT_DIR$/Code_Skeleton/Part2/Game.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="43" selection-start-line="11" selection-start-column="43" selection-end-line="11" selection-end-column="43" />
+        <state relative-caret-position="2">
+          <caret line="121" column="25" lean-forward="true" selection-start-line="121" selection-start-column="25" selection-end-line="121" selection-end-column="25" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Code_Skeleton/Part2/Game.cpp">
+    <entry file="file://$PROJECT_DIR$/Code_Skeleton/Part2/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="106" column="7" selection-start-line="106" selection-start-column="7" selection-end-line="106" selection-end-column="7" />
+        <state relative-caret-position="2">
+          <caret line="11" column="35" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
         </state>
       </provider>
     </entry>
