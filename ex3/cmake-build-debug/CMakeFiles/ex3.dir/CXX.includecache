@@ -44,10 +44,6 @@ C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part1/Semaphore.hpp
 Headers.hpp
 C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part1/Headers.hpp
 
-C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/Game.cpp
-Game.hpp
-C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/Game.hpp
-
 C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/Game.hpp
 Thread.hpp
 C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/Thread.hpp
@@ -63,6 +59,10 @@ C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/Thread.hpp
 C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part1/PCQueue.hpp
 ../Part1/Semaphore.hpp
 C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part1/Semaphore.hpp
+
+C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/main.cpp
+Game.hpp
+C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/Game.hpp
 
 C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/utils.hpp
 ../Part1/Headers.hpp

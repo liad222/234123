@@ -10,6 +10,7 @@ public:
         // Only places thread_id
         this->m_thread_id = m_thread_id;
     }
+
     virtual ~Thread() {} // Does nothing
 
     /** Returns true if the thread was successfully started, false if there was an error starting the thread */
@@ -32,6 +33,7 @@ public:
 protected:
     /** Implement this method in your subclass with the code you want your thread to run. */
     virtual void thread_workload() = 0;
+
     uint m_thread_id; // A number from 0 -> Number of threads initialized, providing a simple numbering for you to use
 
 private:
@@ -54,14 +56,16 @@ private:
     PCQueue<int *> *tasks_completed;
     Semaphore *lock;
     int *lines_Nums;
-
+    vector<float> *m_tile_hist;
 
 public:
     game_Thread(uint m_thread_id, bool_mat **curr, bool_mat **next,
                 uint row, uint col, PCQueue<int *> *tasks,
-                PCQueue<int *> *tasks_completed, Semaphore *lock) :
-                Thread(m_thread_id),curr(curr), next(next), row(row), col(col),
-                tasks(tasks), tasks_completed(tasks_completed), lock(lock) {}
+                PCQueue<int *> *tasks_completed, Semaphore *lock,
+                vector<float> *tile) :
+            Thread(m_thread_id), curr(curr), next(next), row(row), col(col),
+            tasks(tasks), tasks_completed(tasks_completed), lock(lock),
+            m_tile_hist(tile) {}
 
     game_Thread() : Thread() {}
 
@@ -69,10 +73,11 @@ public:
 
     void thread_workload() override {
         while (1) {
+            auto work_start = std::chrono::system_clock::now();
             lines_Nums = tasks->pop();
-            if (lines_Nums[0] == -1 && lines_Nums[1] == -1){
+            if (lines_Nums[0] == -1 && lines_Nums[1] == -1) { ;
                 tasks_completed->push(lines_Nums);
-                break;
+                return;
             }
             int counter = 0;
             for (int i = lines_Nums[0]; i <= lines_Nums[1]; ++i) { //row
@@ -96,22 +101,32 @@ public:
 
                     }
                     if (counter == 3) {
-                        write_Next(i, j, true);
+                        auto work_end = std::chrono::system_clock::now();
+                        write_Next(i, j, true,
+                                   (float) std::chrono::duration_cast<std::chrono::microseconds>(
+                                           work_end - work_start).count());
                         continue;
                     }
                     if (counter == 2 && (**curr)[i][j] == true) {
-                        write_Next(i, j, true);
+                        auto work_end = std::chrono::system_clock::now();
+                        write_Next(i, j, true,
+                                   (float) std::chrono::duration_cast<std::chrono::microseconds>(
+                                           work_end - work_start).count());
                         continue;
                     }
-                    write_Next(i, j, false);
+                    auto work_end = std::chrono::system_clock::now();
+                    write_Next(i, j, false,
+                               (float) std::chrono::duration_cast<std::chrono::microseconds>(
+                                       work_end - work_start).count());
                 }
             }
             tasks_completed->push(lines_Nums);
         }
     }
 
-    void write_Next(int x, int y, bool val) {
+    void write_Next(int x, int y, bool val, float time) {
         lock->down();
+        m_tile_hist->push_back(time);
         (**next)[x][y] = val;
         lock->up();
     }

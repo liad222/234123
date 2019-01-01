@@ -23,33 +23,33 @@ public:
 
 	void consumerLock(){
 		pthread_mutex_lock(&GLock);
-		while(producerInside > 0 || producerWaiting > 0 || items.empty())
+		while(consumerInside > 0 || producerInside > 0 || producerWaiting > 0 || items.empty() )
 				pthread_cond_wait(&consumerCond,&GLock);
 		consumerInside++;
-		pthread_mutex_unlock(&GLock);
+        //pthread_mutex_unlock(&GLock);
 	}
 
 	void consumerUnlock(){
-		pthread_mutex_lock(&GLock);
-		consumerInside--;
+		//pthread_mutex_lock(&GLock);
+        consumerInside--;
 		if(consumerInside == 0)
-			pthread_cond_signal(&producerCond);
+			pthread_cond_signal(&producerCond);/// should we also broadcast for consumer?
 		pthread_mutex_unlock(&GLock);
-	}
+    }
 
 	void producerLock(){
 		pthread_mutex_lock(&GLock);
 		producerWaiting++;
-		while(producerInside > 0 || consumerInside > 0)
+		while(producerInside + consumerInside > 0)
 			pthread_cond_wait(&producerCond,&GLock);
 		producerWaiting--;
 		producerInside++;
-		pthread_mutex_unlock(&GLock);
+        //pthread_mutex_unlock(&GLock);
 	}
 
 	void producerUnlock(){
-		pthread_mutex_lock(&GLock);
-		producerInside--;
+		//pthread_mutex_lock(&GLock);
+        producerInside--;
 		if(producerInside == 0) {
 			pthread_cond_broadcast(&consumerCond);
 			pthread_cond_signal(&producerCond);
@@ -64,7 +64,6 @@ public:
 		consumerLock();
 		T temp = items.front();
 		items.pop();
-		size--;				//TODO DEBUG
 		consumerUnlock();
 		return temp;
 	}
@@ -75,10 +74,8 @@ public:
 	void push(const T& item){
 		producerLock();
 		items.push(item);
-		size ++;			//TODO DEBUG
 		producerUnlock();
 	}
-
 
     void pushmany(T* itemarr){
         producerLock();

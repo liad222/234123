@@ -37,6 +37,8 @@ Game::Game(game_params g) {
     tasks = PCQueue<int *>();
     tasks_completed = PCQueue<int *>();
     m_threadpool = vector<Thread*>();
+    m_tile_hist = vector<float>();
+    m_gen_hist = vector<float>();
 }
 
 
@@ -71,7 +73,7 @@ void Game::_init_game() {
     for (int i = 0; i < m_thread_num; ++i) {
         m_threadpool.push_back(new game_Thread(i, &curr, &next, row, col, &tasks,
                                                &tasks_completed,
-                                               &lock));
+                                               &lock, &m_tile_hist));
     }
     for (int i = 0; i < m_thread_num; ++i) {
         (m_threadpool[i])->start();
@@ -96,13 +98,13 @@ void Game::_step(uint curr_gen) {
     arr[m_thread_num] = nullptr;
     tasks.pushmany(arr);
     ///waiting for the threads to finish
-    while (tasks_completed.getQueueSize() != m_thread_num);///thread_num is also the number of tasks
+    while (tasks_completed.getQueueSize() != m_thread_num*(curr_gen+1));///thread_num is also the number of tasks
 
     ///emptying the task _completed q for the next run
-    while (tasks_completed.getQueueSize() != 0) {
+    /*while (tasks_completed.getQueueSize() != 0) {
        int *temp =  tasks_completed.pop();
        delete[](temp);
-    }
+    }*/
     delete[](arr);
     ///swap
     bool_mat *temp = curr;
@@ -122,14 +124,14 @@ void Game::_destroy_game() {
     }
     arr[m_thread_num] = nullptr;
     tasks.pushmany(arr);
-    for (int i = 0; i < m_thread_num; ++i) {
+    for (int i = m_thread_num-1; i >= 0; --i) {
         m_threadpool[i]->join();
     }
+
     while (tasks_completed.getQueueSize() != 0) {
         int *temp =  tasks_completed.pop();
         delete[](temp);
     }
-    delete[](arr);
     while (!m_threadpool.empty()){
         Thread* temp = m_threadpool.back();       ///not sure if correct,from what i understand we alocated the
         /// "game_Threads" so we need to delete them, the waiting only works the the thread itself not for the class
@@ -175,6 +177,12 @@ inline void Game::print_board(const char *header) {
 
 }
 
+const vector<float> Game::gen_hist() const{
+    return m_gen_hist;
+}
+const vector<float> Game::tile_hist() const{
+    return m_tile_hist;
+}
 
 /* Function sketch to use for printing the board. You will need to decide its placement and how exactly 
 	to bring in the field's parameters. 
