@@ -13,4 +13,5 @@ add_executable(ex3
         Code_Skeleton/Part2/Thread.hpp
         Code_Skeleton/Part2/utils.cpp
         Code_Skeleton/Part2/utils.hpp
-        Code_Skeleton/makefile)
+        Code_Skeleton/makefile
+        )

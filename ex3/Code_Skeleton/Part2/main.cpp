@@ -7,13 +7,18 @@ static void calc_and_append_statistics(uint n_threads, const vector<float>& gen_
 /*--------------------------------------------------------------------------------
 										Main
 --------------------------------------------------------------------------------*/
-int main() {
-	char* argv[6] = {"","tiny.txt","100","1","N","Y"};
-	int argc = 6;
-	game_params params = parse_input_args(argc, argv);
-	Game g(params);
-	g.run();
-	//calc_and_append_statistics(g.thread_num(), g.gen_hist(), g.tile_hist());
+int main(
+//        int argc,char** argv
+){
+    /// runfile filename gen threads N Y
+
+		char *argv[6] = {"", "small.txt", "5", "10", "N", "Y"};
+		int argc = 6;
+		game_params params = parse_input_args(argc, argv);
+		Game g(params);
+		g.run();
+
+//	calc_and_append_statistics(g.thread_num(), g.gen_hist(), g.tile_hist());
 	return 0;
 }
 /*--------------------------------------------------------------------------------
@@ -49,6 +54,7 @@ static inline void usage(const char* mes) {
 
 static void calc_and_append_statistics(uint n_threads, const vector<float>& gen_hist, const vector<float>& tile_hist) {
 
+	cout<<"calc and stats\n";
 	float total_time = (float)accumulate(gen_hist.begin(), gen_hist.end(), 0.0);
 	float avg_gen_time = total_time / gen_hist.size();
 	float avg_tile_time = (float)accumulate(tile_hist.begin(), tile_hist.end(), 0.0) / tile_hist.size();

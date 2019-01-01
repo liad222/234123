@@ -19,23 +19,25 @@ public:
 		GLock = error_check_mutex;
         items = queue<T>();
 		size=0;				//TODO DEBUG
+
 	}
+
 
 	void consumerLock(){
 		pthread_mutex_lock(&GLock);
-		while(producerInside > 0 || producerWaiting > 0 || items.empty())
+		while(consumerInside > 0 || producerInside > 0 || producerWaiting > 0 || items.empty() )
 				pthread_cond_wait(&consumerCond,&GLock);
 		consumerInside++;
-		pthread_mutex_unlock(&GLock);
+        pthread_mutex_unlock(&GLock);
 	}
 
 	void consumerUnlock(){
 		pthread_mutex_lock(&GLock);
-		consumerInside--;
+        consumerInside--;
 		if(consumerInside == 0)
-			pthread_cond_signal(&producerCond);
+			pthread_cond_signal(&producerCond);/// should we also broadcast for consumer?
 		pthread_mutex_unlock(&GLock);
-	}
+    }
 
 	void producerLock(){
 		pthread_mutex_lock(&GLock);
@@ -44,12 +46,12 @@ public:
 			pthread_cond_wait(&producerCond,&GLock);
 		producerWaiting--;
 		producerInside++;
-		pthread_mutex_unlock(&GLock);
+        pthread_mutex_unlock(&GLock);
 	}
 
 	void producerUnlock(){
 		pthread_mutex_lock(&GLock);
-		producerInside--;
+        producerInside--;
 		if(producerInside == 0) {
 			pthread_cond_broadcast(&consumerCond);
 			pthread_cond_signal(&producerCond);
@@ -64,7 +66,7 @@ public:
 		consumerLock();
 		T temp = items.front();
 		items.pop();
-		size--;				//TODO DEBUG
+		size--;
 		consumerUnlock();
 		return temp;
 	}
@@ -74,11 +76,10 @@ public:
 	// Assumes single producer
 	void push(const T& item){
 		producerLock();
+		size++;
 		items.push(item);
-		size ++;			//TODO DEBUG
 		producerUnlock();
 	}
-
 
     void pushmany(T* itemarr){
         producerLock();
@@ -106,5 +107,6 @@ private:
 	queue<T> items;
 	int size;			//TODO DEBUG
 };
+
 // Recommendation: Use the implementation of the std::queue for this exercise
 #endif

@@ -24,8 +24,8 @@ public:
 	~Game(){};
 	void run(); // Runs the game
 	//TODO
-//	const vector<float> gen_hist() const; // Returns the generation timing histogram
-//	const vector<float> tile_hist() const; // Returns the tile timing histogram
+	const vector<float> gen_hist() const; // Returns the generation timing histogram
+	const vector<float> tile_hist() const; // Returns the tile timing histogram
 
 	uint thread_num() const; //Returns the effective number of running threads = min(thread_num, field_height)
 
