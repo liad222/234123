@@ -53,19 +53,18 @@ private:
     uint row;
     uint col;
     PCQueue<int *> *tasks;
-    PCQueue<int *> *tasks_completed;
-    Semaphore *lock;
+    pthread_mutex_t *lock;
+    pthread_mutex_t *Tlock;
     int *lines_Nums;
     vector<float> *m_tile_hist;
 
 public:
     game_Thread(uint m_thread_id, bool_mat **curr, bool_mat **next,
                 uint row, uint col, PCQueue<int *> *tasks,
-                PCQueue<int *> *tasks_completed, Semaphore *lock,
+                pthread_mutex_t *lock,pthread_mutex_t *Tlock,
                 vector<float> *tile) :
             Thread(m_thread_id), curr(curr), next(next), row(row), col(col),
-            tasks(tasks), tasks_completed(tasks_completed), lock(lock),
-            m_tile_hist(tile) {}
+            tasks(tasks), lock(lock), Tlock(Tlock), m_tile_hist(tile) {}
 
     game_Thread() : Thread() {}
 
@@ -73,10 +72,9 @@ public:
 
     void thread_workload() override {
         while (1) {
-            auto work_start = std::chrono::system_clock::now();
             lines_Nums = tasks->pop();
+            auto work_start = std::chrono::system_clock::now();
             if (lines_Nums[0] == -1 && lines_Nums[1] == -1) { ;
-                tasks_completed->push(lines_Nums);
                 return;
             }
             int counter = 0;
@@ -101,34 +99,28 @@ public:
 
                     }
                     if (counter == 3) {
-                        auto work_end = std::chrono::system_clock::now();
-                        write_Next(i, j, true,
-                                   (float) std::chrono::duration_cast<std::chrono::microseconds>(
-                                           work_end - work_start).count());
+                        write_Next(i, j, true);
                         continue;
                     }
                     if (counter == 2 && (**curr)[i][j] == true) {
-                        auto work_end = std::chrono::system_clock::now();
-                        write_Next(i, j, true,
-                                   (float) std::chrono::duration_cast<std::chrono::microseconds>(
-                                           work_end - work_start).count());
+                        write_Next(i, j, true);
                         continue;
                     }
-                    auto work_end = std::chrono::system_clock::now();
-                    write_Next(i, j, false,
-                               (float) std::chrono::duration_cast<std::chrono::microseconds>(
-                                       work_end - work_start).count());
+                    write_Next(i, j, false);
                 }
             }
-            tasks_completed->push(lines_Nums);
+            auto work_end = std::chrono::system_clock::now();
+            float time = (float) std::chrono::duration_cast<std::chrono::microseconds>(work_end - work_start).count();
+            pthread_mutex_lock(Tlock);
+            m_tile_hist->push_back(time);
+            pthread_mutex_unlock(Tlock);
         }
     }
 
-    void write_Next(int x, int y, bool val, float time) {
-        lock->down();
-        m_tile_hist->push_back(time);
+    void write_Next(int x, int y, bool val) {
+        pthread_mutex_lock(lock);
         (**next)[x][y] = val;
-        lock->up();
+        pthread_mutex_unlock(lock);
     }
 
 

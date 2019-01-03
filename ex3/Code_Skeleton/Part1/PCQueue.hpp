@@ -23,7 +23,7 @@ public:
 
 	void consumerLock(){
 		pthread_mutex_lock(&GLock);
-		while(consumerInside > 0 || producerInside > 0 || producerWaiting > 0 || items.empty() )
+		while(consumerInside > 0  || producerWaiting > 0 || items.empty() )
 				pthread_cond_wait(&consumerCond,&GLock);
 		consumerInside++;
         //pthread_mutex_unlock(&GLock);
@@ -77,7 +77,7 @@ public:
 		producerUnlock();
 	}
 
-    void pushmany(T* itemarr){
+    /*void pushmany(T* itemarr){
         producerLock();
         int i=0;
         while(itemarr[i] != nullptr) {
@@ -86,7 +86,7 @@ public:
             i++;
         }
         producerUnlock();
-    }
+    }*/
 
 	//returns the size of
 	int getQueueSize(){

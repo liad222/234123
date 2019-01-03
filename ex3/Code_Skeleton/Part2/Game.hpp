@@ -54,8 +54,8 @@ protected: // All members here are protected, instead of private for testing pur
 	bool_mat boards[2];
 	uint row;
 	uint col;
-	Semaphore lock;
+	pthread_mutex_t lock;
+	pthread_mutex_t Tlock;
 	PCQueue<int*> tasks;
-    PCQueue<int*> tasks_completed;
 };
 #endif

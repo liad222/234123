@@ -33,9 +33,19 @@ Game::Game(game_params g) {
     row = (*curr).size();
     col = ((*curr)[0]).size();
     m_thread_num = thread_num();
-    lock = Semaphore(1);
+    pthread_mutexattr_t attr;            //lock init
+    pthread_mutexattr_init(&attr);
+    pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_ERRORCHECK);
+    pthread_mutex_t error_check_mutex;
+    pthread_mutex_init(&error_check_mutex, &attr);
+    lock = error_check_mutex;
+    pthread_mutexattr_t attr2;            //lock init
+    pthread_mutexattr_init(&attr2);
+    pthread_mutexattr_settype(&attr2, PTHREAD_MUTEX_ERRORCHECK);
+    pthread_mutex_t error_check_mutex2;
+    pthread_mutex_init(&error_check_mutex2, &attr2);
+    Tlock = error_check_mutex;
     tasks = PCQueue<int *>();
-    tasks_completed = PCQueue<int *>();
     m_threadpool = vector<Thread*>();
     m_tile_hist = vector<float>();
     m_gen_hist = vector<float>();
@@ -72,8 +82,8 @@ void Game::_init_game() {
     // Testing of your implementation will presume all threads are started here
     for (int i = 0; i < m_thread_num; ++i) {
         m_threadpool.push_back(new game_Thread(i, &curr, &next, row, col, &tasks,
-                                               &tasks_completed,
-                                               &lock, &m_tile_hist));
+                                               &lock,&Tlock, &m_tile_hist));
+
     }
     for (int i = 0; i < m_thread_num; ++i) {
         (m_threadpool[i])->start();
@@ -86,25 +96,23 @@ void Game::_step(uint curr_gen) {
     // Swap pointers between current and next field
 
     int diff = row / m_thread_num;
-    int **arr = new int* [m_thread_num+1];
+    int **arr = new int* [m_thread_num];
     for (int i = 0; i < m_thread_num - 1; ++i) {
-         arr[i] = new int[2];
+         int *x = new int[2];
+         arr[i] = x;
         (arr[i])[0] = diff * i;
         (arr[i])[1] = diff * (i + 1) - 1;
+        tasks.push(arr[i]);
     }
-    arr[m_thread_num - 1] = new int[2];
+    int *last = new int[2];
+    arr[m_thread_num - 1] = last;
     (arr[m_thread_num - 1])[0] = diff * (m_thread_num - 1);
     (arr[m_thread_num - 1])[1] = row - 1;
-    arr[m_thread_num] = nullptr;
-    tasks.pushmany(arr);
+    //arr[m_thread_num] = nullptr;
+    tasks.push(arr[m_thread_num - 1]);
     ///waiting for the threads to finish
-    while (tasks_completed.getQueueSize() != m_thread_num*(curr_gen+1));///thread_num is also the number of tasks
+    while (m_tile_hist.size() != m_thread_num*(curr_gen+1));///thread_num is also the number of tasks
 
-    ///emptying the task _completed q for the next run
-    /*while (tasks_completed.getQueueSize() != 0) {
-       int *temp =  tasks_completed.pop();
-       delete[](temp);
-    }*/
     delete[](arr);
     ///swap
     bool_mat *temp = curr;
@@ -116,23 +124,25 @@ void Game::_destroy_game() {
     // Destroys board and frees all threads and resources
     // Not implemented in the Game's destructor for testing purposes.
     // Testing of your implementation will presume all threads are joined here
-    int **arr = new int* [m_thread_num+1];
+    int **arr = new int* [m_thread_num];
     for (int i = 0; i < m_thread_num; ++i) {
-        arr[i] = new int[2];
+        int *x = new int[2];
+        arr[i] = x;
         (arr[i])[0] = -1;
         (arr[i])[1] = -1;
+        tasks.push(arr[i]);
     }
-    arr[m_thread_num] = nullptr;
-    tasks.pushmany(arr);
+    //arr[m_thread_num] = nullptr;
+    //tasks.pushmany(arr);
     for (int i = m_thread_num-1; i >= 0; --i) {
         m_threadpool[i]->join();
     }
-
-    while (tasks_completed.getQueueSize() != 0) {
+    delete[](arr);
+   /* while (tasks_completed.getQueueSize() != 0) {
         int *temp =  tasks_completed.pop();
         delete[](temp);
-    }
-    while (!m_threadpool.empty()){
+    }*/
+   while (!m_threadpool.empty()){
         Thread* temp = m_threadpool.back();       ///not sure if correct,from what i understand we alocated the
         /// "game_Threads" so we need to delete them, the waiting only works the the thread itself not for the class
         m_threadpool.pop_back();

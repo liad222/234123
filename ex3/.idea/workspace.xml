@@ -66,23 +66,24 @@
     <session id="1915932743">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="14" />
+          <entry key="project.closed" value="18" />
           <entry key="project.open.time.0" value="3" />
-          <entry key="project.open.time.5" value="3" />
-          <entry key="project.open.time.6" value="6" />
+          <entry key="project.open.time.5" value="5" />
+          <entry key="project.open.time.6" value="8" />
           <entry key="project.open.time.7" value="1" />
           <entry key="project.open.time.8" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="15" />
+          <entry key="project.opened" value="19" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="Build All (disassembly)" value="10" />
-          <entry key="cpp" value="36" />
+          <entry key="Build All (disassembly)" value="13" />
+          <entry key="chrono" value="1" />
+          <entry key="cpp" value="40" />
           <entry key="ex3 (disassembly)" value="4" />
           <entry key="h" value="19" />
-          <entry key="hpp" value="51" />
+          <entry key="hpp" value="59" />
           <entry key="hpp___jb_old___" value="1" />
           <entry key="new" value="1" />
           <entry key="tcc" value="1" />
@@ -92,22 +93,23 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CMakeLists.txt" value="7" />
-          <entry key="Disassembly" value="14" />
-          <entry key="ObjectiveC" value="109" />
+          <entry key="Disassembly" value="17" />
+          <entry key="ObjectiveC" value="122" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="cpp" value="2627" />
-          <entry key="hpp" value="2968" />
-          <entry key="mm" value="5" />
+          <entry key="cpp" value="2982" />
+          <entry key="hpp" value="3118" />
+          <entry key="mm" value="6" />
           <entry key="txt" value="15" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CMakeLists.txt" value="15" />
-          <entry key="ObjectiveC" value="5600" />
+          <entry key="Doxygen file" value="1" />
+          <entry key="ObjectiveC" value="6105" />
         </counts>
       </usages-collector>
     </session>
@@ -123,20 +125,32 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Code_Skeleton/Part2/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2">
-              <caret line="11" column="35" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
+            <state relative-caret-position="68">
+              <caret line="10" column="8" lean-forward="true" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Code_Skeleton/Part2/Game.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="339">
+              <caret line="133" column="5" lean-forward="true" selection-start-line="133" selection-start-column="5" selection-end-line="133" selection-end-column="5" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Code_Skeleton/Part2/Game.cpp">
+        <entry file="file://$PROJECT_DIR$/Code_Skeleton/Part2/Game.hpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2">
-              <caret line="121" column="25" lean-forward="true" selection-start-line="121" selection-start-column="25" selection-end-line="121" selection-end-column="25" />
+            <state relative-caret-position="189">
+              <caret line="58" column="24" selection-start-line="58" selection-start-column="24" selection-end-line="58" selection-end-column="24" />
+              <folding>
+                <element signature="e#40#61#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -144,22 +158,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Code_Skeleton/Part2/Thread.hpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="81" column="28" selection-start-line="81" selection-start-column="28" selection-end-line="81" selection-end-column="28" />
+            <state relative-caret-position="-149">
+              <caret line="66" column="52" selection-start-line="66" selection-start-column="52" selection-end-line="66" selection-end-column="52" />
               <folding>
                 <element signature="e#39#70#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Code_Skeleton/Part1/PCQueue.hpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="36" column="37" lean-forward="true" selection-start-line="36" selection-start-column="37" selection-end-line="36" selection-end-column="37" />
-              <folding>
-                <element signature="e#113#125#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -189,15 +191,16 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Code_Skeleton/Part1/part1test.cpp" />
-        <option value="$PROJECT_DIR$/Code_Skeleton/Part1/Semaphore.hpp" />
         <option value="$PROJECT_DIR$/Code_Skeleton/Part2/utils.cpp" />
         <option value="$PROJECT_DIR$/Code_Skeleton/Part2/utils.hpp" />
         <option value="$PROJECT_DIR$/Code_Skeleton/Part2/asdasd.cpp" />
         <option value="$PROJECT_DIR$/Code_Skeleton/Part2/asdasd.hpp" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$USER_HOME$/Application Data/SSH/temp/main (4).cpp" />
+        <option value="$PROJECT_DIR$/Code_Skeleton/Part1/PCQueue.hpp" />
+        <option value="$PROJECT_DIR$/Code_Skeleton/Part1/Semaphore.hpp" />
         <option value="$PROJECT_DIR$/Code_Skeleton/Part2/Game.hpp" />
         <option value="$PROJECT_DIR$/Code_Skeleton/Part2/Thread.hpp" />
-        <option value="$PROJECT_DIR$/Code_Skeleton/Part1/PCQueue.hpp" />
         <option value="$PROJECT_DIR$/Code_Skeleton/Part2/Game.cpp" />
         <option value="$PROJECT_DIR$/Code_Skeleton/Part2/main.cpp" />
       </list>
@@ -211,9 +214,9 @@
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-12" />
-    <option name="width" value="981" />
-    <option name="height" value="1032" />
+    <option name="x" value="949" />
+    <option name="width" value="980" />
+    <option name="height" value="1031" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -327,11 +330,15 @@
       <workItem from="1546348942087" duration="176000" />
       <workItem from="1546349212547" duration="10443000" />
       <workItem from="1546363658185" duration="4890000" />
+      <workItem from="1546370319052" duration="2094000" />
+      <workItem from="1546423611636" duration="455000" />
+      <workItem from="1546431817309" duration="5639000" />
+      <workItem from="1546510874424" duration="10753000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="86917000" />
+    <option name="totallyTimeSpent" value="105858000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -345,12 +352,12 @@
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.48229343" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12388664" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.9003559" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.21174377" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.37188613" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -359,7 +366,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.3291815" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.3291815" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.3291815" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.33451957" />
+      <window_info active="true" anchor="bottom" id="Messages" order="11" visible="true" weight="0.33451957" />
       <window_info anchor="bottom" id="CMake" order="12" weight="0.2752391" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -373,8 +380,39 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Code_Skeleton/Part2/Game.cpp</url>
+          <line>126</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Code_Skeleton/Part2/Game.cpp</url>
+          <line>139</line>
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Code_Skeleton/Part2/Game.cpp</url>
+          <line>150</line>
+          <option name="timeStamp" value="46" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="CMakeRunConfiguration">
+        <watch expression="m_tile_hist" language="ObjectiveC" />
+      </configuration>
+    </watches-manager>
+  </component>
   <component name="debuggerHistoryManager">
     <expressions id="watch">
+      <expression>
+        <expression-string>m_tile_hist</expression-string>
+        <language-id>ObjectiveC</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>*temp</expression-string>
         <language-id>ObjectiveC</language-id>
@@ -393,13 +431,6 @@
     <entry file="file://$PROJECT_DIR$/Code_Skeleton/Part1/queue_test.cpp" />
     <entry file="file://$PROJECT_DIR$/Code_Skeleton/Part1/part1test.cpp" />
     <entry file="file://$PROJECT_DIR$/Code_Skeleton/Part1/PCQueue.hpp___jb_old___" />
-    <entry file="file://$PROJECT_DIR$/Code_Skeleton/Part1/Semaphore.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="22" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp" />
     <entry file="file://$PROJECT_DIR$/Code_Skeleton/Part2/utils.hpp">
       <provider selected="true" editor-type-id="text-editor">
@@ -454,17 +485,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Code_Skeleton/Part2/Game.hpp">
+    <entry file="file://$USER_HOME$/Application Data/SSH/temp/main (3).cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="27" column="4" selection-start-line="27" selection-start-column="4" selection-end-line="27" selection-end-column="4" />
-          <folding>
-            <element signature="e#40#61#0" expanded="true" />
-          </folding>
-        </state>
+        <state relative-caret-position="-51" />
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Application Data/SSH/temp/main (3).cpp">
+    <entry file="file://$USER_HOME$/Application Data/SSH/temp/Game (1).cpp" />
+    <entry file="file://$USER_HOME$/Application Data/SSH/temp/main (5).cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-51" />
       </provider>
@@ -476,47 +503,73 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://C:/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/5.1.0/include/c++/chrono">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="398" selection-start-line="398" selection-end-line="398" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$USER_HOME$/Application Data/SSH/temp/Game.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2244" />
+        <state relative-caret-position="-918" />
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Application Data/SSH/temp/Game (1).cpp">
+    <entry file="file://$PROJECT_DIR$/Code_Skeleton/Part1/Semaphore.hpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2040" />
+        <state relative-caret-position="935">
+          <caret line="55" column="4" selection-start-line="55" selection-start-column="4" selection-end-line="55" selection-end-column="4" />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Code_Skeleton/Part2/Thread.hpp">
+    <entry file="file://$USER_HOME$/Application Data/SSH/temp/main (4).cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="81" column="28" selection-start-line="81" selection-start-column="28" selection-end-line="81" selection-end-column="28" />
-          <folding>
-            <element signature="e#39#70#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="221">
+          <caret line="13" column="4" lean-forward="true" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Code_Skeleton/Part1/PCQueue.hpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="36" column="37" lean-forward="true" selection-start-line="36" selection-start-column="37" selection-end-line="36" selection-end-column="37" />
+        <state relative-caret-position="272">
+          <caret line="46" column="31" selection-start-line="46" selection-start-column="31" selection-end-line="46" selection-end-column="31" />
           <folding>
             <element signature="e#113#125#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Code_Skeleton/Part2/Game.cpp">
+    <entry file="file://$PROJECT_DIR$/Code_Skeleton/Part2/Game.hpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2">
-          <caret line="121" column="25" lean-forward="true" selection-start-line="121" selection-start-column="25" selection-end-line="121" selection-end-column="25" />
+        <state relative-caret-position="189">
+          <caret line="58" column="24" selection-start-line="58" selection-start-column="24" selection-end-line="58" selection-end-column="24" />
+          <folding>
+            <element signature="e#40#61#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Code_Skeleton/Part2/Thread.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-149">
+          <caret line="66" column="52" selection-start-line="66" selection-start-column="52" selection-end-line="66" selection-end-column="52" />
+          <folding>
+            <element signature="e#39#70#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Code_Skeleton/Part2/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2">
-          <caret line="11" column="35" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
+        <state relative-caret-position="68">
+          <caret line="10" column="8" lean-forward="true" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Code_Skeleton/Part2/Game.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="339">
+          <caret line="133" column="5" lean-forward="true" selection-start-line="133" selection-start-column="5" selection-end-line="133" selection-end-column="5" />
         </state>
       </provider>
     </entry>
