@@ -103,7 +103,9 @@ void Game::_step(uint curr_gen) {
     //arr[m_thread_num] = nullptr;
     tasks.push(Job(diff * (m_thread_num - 1),row - 1));
     ///waiting for the threads to finish
-    while (m_tile_hist.size() != m_thread_num*(curr_gen+1));///thread_num is also the number of tasks
+    while (m_tile_hist.size() != m_thread_num*(curr_gen+1)){///thread_num is also the number of tasks
+//    sched_yield();
+    }
 
     ///swap
     bool_mat *temp = curr;

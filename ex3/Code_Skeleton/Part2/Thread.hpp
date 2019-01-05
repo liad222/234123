@@ -118,9 +118,9 @@ public:
     }
 
     void write_Next(int x, int y, bool val) {
-        pthread_mutex_lock(lock);
+//        pthread_mutex_lock(lock);
         (**next)[x][y] = val;
-        pthread_mutex_unlock(lock);
+//        pthread_mutex_unlock(lock);
     }
 
 
