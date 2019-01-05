@@ -3,7 +3,7 @@
 
 #include "../Part1/PCQueue.hpp"
 #include "../Part1/Semaphore.hpp"
-
+#include "Job.hpp"
 class Thread {
 public:
     Thread(uint m_thread_id = 0) {
@@ -52,15 +52,15 @@ private:
     bool_mat **next;
     uint row;
     uint col;
-    PCQueue<int *> *tasks;
+    PCQueue<Job> *tasks;
     pthread_mutex_t *lock;
     pthread_mutex_t *Tlock;
-    int *lines_Nums;
+    Job lines_Nums;
     vector<float> *m_tile_hist;
 
 public:
     game_Thread(uint m_thread_id, bool_mat **curr, bool_mat **next,
-                uint row, uint col, PCQueue<int *> *tasks,
+                uint row, uint col, PCQueue<Job> *tasks,
                 pthread_mutex_t *lock,pthread_mutex_t *Tlock,
                 vector<float> *tile) :
             Thread(m_thread_id), curr(curr), next(next), row(row), col(col),
@@ -74,11 +74,11 @@ public:
         while (1) {
             lines_Nums = tasks->pop();
             auto work_start = std::chrono::system_clock::now();
-            if (lines_Nums[0] == -1 && lines_Nums[1] == -1) { ;
+            if (lines_Nums.first == -1 && lines_Nums.last == -1) { ;
                 return;
             }
             int counter = 0;
-            for (int i = lines_Nums[0]; i <= lines_Nums[1]; ++i) { //row
+            for (int i = lines_Nums.first; i <= lines_Nums.last; ++i) { //row
                 for (int j = 0; j < col; ++j) {                   //col
                     counter = 0;
                     for (int l = -1; l < 2; ++l) {//rows

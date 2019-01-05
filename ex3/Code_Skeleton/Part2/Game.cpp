@@ -45,7 +45,7 @@ Game::Game(game_params g) {
     pthread_mutex_t error_check_mutex2;
     pthread_mutex_init(&error_check_mutex2, &attr2);
     Tlock = error_check_mutex;
-    tasks = PCQueue<int *>();
+    tasks = PCQueue<Job>();
     m_threadpool = vector<Thread*>();
     m_tile_hist = vector<float>();
     m_gen_hist = vector<float>();
@@ -96,24 +96,15 @@ void Game::_step(uint curr_gen) {
     // Swap pointers between current and next field
 
     int diff = row / m_thread_num;
-    int **arr = new int* [m_thread_num];
+
     for (int i = 0; i < m_thread_num - 1; ++i) {
-         int *x = new int[2];
-         arr[i] = x;
-        (arr[i])[0] = diff * i;
-        (arr[i])[1] = diff * (i + 1) - 1;
-        tasks.push(arr[i]);
+        tasks.push(Job(diff * i,diff * (i + 1) - 1));
     }
-    int *last = new int[2];
-    arr[m_thread_num - 1] = last;
-    (arr[m_thread_num - 1])[0] = diff * (m_thread_num - 1);
-    (arr[m_thread_num - 1])[1] = row - 1;
     //arr[m_thread_num] = nullptr;
-    tasks.push(arr[m_thread_num - 1]);
+    tasks.push(Job(diff * (m_thread_num - 1),row - 1));
     ///waiting for the threads to finish
     while (m_tile_hist.size() != m_thread_num*(curr_gen+1));///thread_num is also the number of tasks
 
-    delete[](arr);
     ///swap
     bool_mat *temp = curr;
     curr = next;
@@ -124,20 +115,14 @@ void Game::_destroy_game() {
     // Destroys board and frees all threads and resources
     // Not implemented in the Game's destructor for testing purposes.
     // Testing of your implementation will presume all threads are joined here
-    int **arr = new int* [m_thread_num];
     for (int i = 0; i < m_thread_num; ++i) {
-        int *x = new int[2];
-        arr[i] = x;
-        (arr[i])[0] = -1;
-        (arr[i])[1] = -1;
-        tasks.push(arr[i]);
+        tasks.push(Job(-1,-1));
     }
     //arr[m_thread_num] = nullptr;
     //tasks.pushmany(arr);
     for (int i = m_thread_num-1; i >= 0; --i) {
         m_threadpool[i]->join();
     }
-    delete[](arr);
    /* while (tasks_completed.getQueueSize() != 0) {
         int *temp =  tasks_completed.pop();
         delete[](temp);
@@ -193,6 +178,7 @@ const vector<float> Game::gen_hist() const{
 const vector<float> Game::tile_hist() const{
     return m_tile_hist;
 }
+
 
 /* Function sketch to use for printing the board. You will need to decide its placement and how exactly 
 	to bring in the field's parameters. 

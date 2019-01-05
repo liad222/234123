@@ -7,6 +7,7 @@ CMakeFiles/ex3.dir/Code_Skeleton/Part2/Game.cpp.obj
  C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part1/Semaphore.hpp
  C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/Game.cpp
  C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/Game.hpp
+ C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/Job.hpp
  C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/Thread.hpp
  C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/utils.hpp
 CMakeFiles/ex3.dir/Code_Skeleton/Part2/main.cpp.obj
@@ -14,6 +15,7 @@ CMakeFiles/ex3.dir/Code_Skeleton/Part2/main.cpp.obj
  C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part1/PCQueue.hpp
  C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part1/Semaphore.hpp
  C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/Game.hpp
+ C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/Job.hpp
  C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/Thread.hpp
  C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/main.cpp
  C:/Users/Liad/Documents/GitHub/234123/ex3/Code_Skeleton/Part2/utils.hpp

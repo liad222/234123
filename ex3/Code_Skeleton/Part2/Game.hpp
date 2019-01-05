@@ -4,6 +4,7 @@
 #include "utils.hpp"
 #include "../Part1/Semaphore.hpp"
 #include "../Part1/PCQueue.hpp"
+#include "Job.hpp"
 /*--------------------------------------------------------------------------------
 								  Auxiliary Structures
 --------------------------------------------------------------------------------*/
@@ -56,6 +57,9 @@ protected: // All members here are protected, instead of private for testing pur
 	uint col;
 	pthread_mutex_t lock;
 	pthread_mutex_t Tlock;
-	PCQueue<int*> tasks;
+	PCQueue<Job> tasks;
 };
+
+
+
 #endif
