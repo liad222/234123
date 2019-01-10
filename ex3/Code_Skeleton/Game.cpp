@@ -1,8 +1,9 @@
 #include "Game.hpp"
 
 /*--------------------------------------------------------------------------------
-								
+
 --------------------------------------------------------------------------------*/
+//This function converts the string vector from the input to a bool_mat
 void string2bool(game_params g, bool_mat *x) {
     vector<string> temp = utils::read_lines(g.filename);
     uint col = (temp.front()).length();
@@ -100,12 +101,9 @@ void Game::_step(uint curr_gen) {
     for (int i = 0; i < m_thread_num - 1; ++i) {
         tasks.push(Job(diff * i,diff * (i + 1) - 1));
     }
-    //arr[m_thread_num] = nullptr;
     tasks.push(Job(diff * (m_thread_num - 1),row - 1));
     ///waiting for the threads to finish
-    while (m_tile_hist.size() != m_thread_num*(curr_gen+1)){///thread_num is also the number of tasks
-//    sched_yield();
-    }
+    while (m_tile_hist.size() != m_thread_num*(curr_gen+1));///thread_num is also the number of tasks
 
     ///swap
     bool_mat *temp = curr;
@@ -120,26 +118,20 @@ void Game::_destroy_game() {
     for (int i = 0; i < m_thread_num; ++i) {
         tasks.push(Job(-1,-1));
     }
-    //arr[m_thread_num] = nullptr;
-    //tasks.pushmany(arr);
+
     for (int i = m_thread_num-1; i >= 0; --i) {
         m_threadpool[i]->join();
     }
-   /* while (tasks_completed.getQueueSize() != 0) {
-        int *temp =  tasks_completed.pop();
-        delete[](temp);
-    }*/
+
    while (!m_threadpool.empty()){
-        Thread* temp = m_threadpool.back();       ///not sure if correct,from what i understand we alocated the
-        /// "game_Threads" so we need to delete them, the waiting only works the the thread itself not for the class
+        Thread* temp = m_threadpool.back();
         m_threadpool.pop_back();
         delete temp;
     }
-
 }
 
 /*--------------------------------------------------------------------------------
-								
+
 --------------------------------------------------------------------------------*/
 inline void Game::print_board(const char *header) {
     if (print_on) {
@@ -182,8 +174,8 @@ const vector<float> Game::tile_hist() const{
 }
 
 
-/* Function sketch to use for printing the board. You will need to decide its placement and how exactly 
-	to bring in the field's parameters. 
+/* Function sketch to use for printing the board. You will need to decide its placement and how exactly
+	to bring in the field's parameters.
 
 		cout << u8"╔" << string(u8"═") * field_width << u8"╗" << endl;
 		for (uint i = 0; i < field_height ++i) {
@@ -194,7 +186,4 @@ const vector<float> Game::tile_hist() const{
 			cout << u8"║" << endl;
 		}
 		cout << u8"╚" << string(u8"═") * field_width << u8"╝" << endl;
-*/ 
-
-
-
+*/

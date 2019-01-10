@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/ex3.dir/Code_Skeleton/Part2/Game.cpp.obj"
-  "CMakeFiles/ex3.dir/Code_Skeleton/Part2/main.cpp.obj"
-  "CMakeFiles/ex3.dir/Code_Skeleton/Part2/utils.cpp.obj"
+  "CMakeFiles/ex3.dir/Code_Skeleton/Game.cpp.obj"
+  "CMakeFiles/ex3.dir/Code_Skeleton/main.cpp.obj"
+  "CMakeFiles/ex3.dir/Code_Skeleton/utils.cpp.obj"
   "ex3.pdb"
   "ex3.exe"
   "ex3.exe.manifest"

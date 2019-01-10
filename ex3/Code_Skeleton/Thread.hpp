@@ -1,8 +1,8 @@
 #ifndef __THREAD_H
 #define __THREAD_H
 
-#include "../Part1/PCQueue.hpp"
-#include "../Part1/Semaphore.hpp"
+#include "PCQueue.hpp"
+#include "Semaphore.hpp"
 #include "Job.hpp"
 class Thread {
 public:
@@ -70,6 +70,7 @@ public:
 
     ~game_Thread() override {}
 
+//The main function of the calculation algorithm
     void thread_workload() override {
         while (1) {
             lines_Nums = tasks->pop();
@@ -98,15 +99,11 @@ public:
                         }
 
                     }
-                    if (counter == 3) {
-                        write_Next(i, j, true);
-                        continue;
+                    if ((counter == 3) || (counter == 2 && (**curr)[i][j] == true)) {
+                        (**next)[i][j] = true;
+                    } else {
+                        (**next)[i][j]= false;
                     }
-                    if (counter == 2 && (**curr)[i][j] == true) {
-                        write_Next(i, j, true);
-                        continue;
-                    }
-                    write_Next(i, j, false);
                 }
             }
             auto work_end = std::chrono::system_clock::now();
@@ -117,11 +114,6 @@ public:
         }
     }
 
-    void write_Next(int x, int y, bool val) {
-//        pthread_mutex_lock(lock);
-        (**next)[x][y] = val;
-//        pthread_mutex_unlock(lock);
-    }
 
 
 };

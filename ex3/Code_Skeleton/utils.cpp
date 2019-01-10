@@ -61,4 +61,3 @@ string operator*(string str, size_t n)
 {
 	return repeat(move(str), n);
 }
-
